@@ -1,0 +1,62 @@
+version: '3'
+name: bird-dev
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    command: -p ${POSTGRES_PORT}
+
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - ${REDIS_URL_PORT}:${REDIS_URL_PORT}
+    command: redis-server --save 20 1 --port ${REDIS_URL_PORT} --loglevel warning
+    volumes:
+      - cache:/data
+  bird-api-dev:
+    container_name: bird-api-dev
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: bird-api-dev
+    depends_on:
+      - db
+      - cache
+    ports:
+      - ${PORT}:${PORT}
+    entrypoint: ["yarn", "dev-run"]
+    links:
+      - db
+      - cache
+    volumes:
+      - ./:/src
+  minio:
+    image: minio/minio
+    ports:
+      - ${MINIO_ENDPOINT_PORT}:${MINIO_ENDPOINT_PORT}
+      - ${MINIO_ENDPOINT_PORT_WEB}:${MINIO_ENDPOINT_PORT_WEB}
+    volumes:
+      - minio_storage:/data
+    environment:
+      MINIO_ROOT_USER: bird
+      MINIO_ROOT_PASSWORD: Bird@2022
+    command: server --console-address ":${MINIO_ENDPOINT_PORT_WEB}" /data
+volumes:
+  minio_storage: {}
+  bird-api-dev:
+    driver: local
+  db:
+    driver: local
+  cache:
+    driver: local
