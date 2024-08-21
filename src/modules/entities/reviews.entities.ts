@@ -1,16 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Provider } from './providers.entities';
 
 @Entity()
-export class Reviews {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class Review {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: 'varchar', length: 255 })
-    source: string;
+  @Column()
+  source: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    description: string;
+  @Column("float")
+  rating: number;
 
-    @Column({ type: 'bigint', nullable: true })
-    rating?: number;
+  @Column()
+  review: string;
+
+  @ManyToOne(() => Provider, provider => provider.reviews)
+  provider: Provider;
 }

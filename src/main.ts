@@ -4,7 +4,7 @@ import config from 'config';
 import { AppDataSource } from './utilities/data-source';
 import validateEnv from './utilities/validateEnv';
 import { loadMonitoringModule } from './utilities/swaggerStats';
-import RouteConfiguration from './api';
+import routeConfiguration from './api';
 import { handleGlobalErrors, healthCheck, useCors, useLogger } from './utilities/service-config';
 import 'reflect-metadata';
 import Container from 'typedi';
@@ -26,7 +26,7 @@ AppDataSource.initialize().then(async () => {
 
   await loadMonitoringModule(app);
 
-  await RouteConfiguration(app);
+  await routeConfiguration(app);
 
   await healthCheck(app);
 

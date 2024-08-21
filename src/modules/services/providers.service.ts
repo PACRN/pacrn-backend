@@ -1,26 +1,25 @@
-import { Providers } from '../entities/providers.entities';
+import { ObjectLiteral } from 'typeorm';
+import { Provider } from '../entities/providers.entities';
 import { ProvidersRepository } from '../repositories/providers.repository';
 import { BaseService } from './base.service';
 import { Service, Inject } from 'typedi';
 
 @Service()
-export class ProvidersService extends BaseService<Providers> {
+export class ProvidersService extends BaseService<Provider> {
     constructor(
         @Inject(() => ProvidersRepository) private providersRepository: ProvidersRepository
     ) { super(providersRepository) }
 
-    public async GetAllProviders(): Promise<Providers[]> {
+    public async GetAllProviders(): Promise<Provider[]> {
         try {
             let data = await this.repository.findAll({
                 relations: {
-                    careType: true,
-                    location: true,
-                    tags: true,
-                    ratings: true,
-                    reviews: true,
-                    report: true
+                    'reviews': true,
+                    'ratings': true,
+                    'location': true
                 }
             });
+
 
             return data;
         } catch (error) {
@@ -28,6 +27,28 @@ export class ProvidersService extends BaseService<Providers> {
         }
     }
 
+    public async GetProvider(id: number): Promise<Provider> {
+        try {
+            let data = await this.repository.findOne(id, {
+                relations: {
+                    'reviews': true,
+                    'ratings': true,
+                    'location': true
+                }
+            });
+            return data;
+        } catch (error) {
+            throw error
+        }
+    }
 
-    // Add any Providers-specific service methods here if needed
+    public async GetNearestProviders(): Promise<ObjectLiteral[]> {
+        try {
+            let data = await this.providersRepository.findNearbyProviders(37.7749, -122.4194, 5);
+            return data;
+        } catch (error) {
+            throw error
+        }
+    }
+
 }

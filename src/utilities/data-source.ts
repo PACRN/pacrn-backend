@@ -1,16 +1,16 @@
 require('dotenv').config();
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Providers } from '../modules/entities/providers.entities';
-import { CareTypes } from '../modules/entities/careTypes.entities';
+import { Provider } from '../modules/entities/providers.entities';
+import { CareType } from '../modules/entities/careTypes.entities';
 import { Cares } from '../modules/entities/cares.entities';
 import { Tenant } from '../modules/entities/tenant.entities';
 import { TenantConfigurations } from '../modules/entities/tenantConfigurations.entities';
 import { Subscriptions } from '../modules/entities/subscriptions.entities';
 import { Location } from '../modules/entities/location.entities';
 import { Tags } from '../modules/entities/tags.entities';
-import { Ratings } from '../modules/entities/ratings.entities';
-import { Reviews } from '../modules/entities/reviews.entities';
+import { Rating } from '../modules/entities/ratings.entities';
+import { Review } from '../modules/entities/reviews.entities';
 import { Reports } from '../modules/entities/reports.entities';
 import { Customer } from '../modules/entities/customer.entities';
 import { Wishlist } from '../modules/entities/wishlist.entities';
@@ -24,9 +24,9 @@ export const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Providers, CareTypes, Cares, 
+  entities: [Provider, CareType, Cares, 
     Tenant, TenantConfigurations, Subscriptions,
-    Location, Tags, Ratings, Reviews, Reports, Customer, Wishlist],
+    Location, Tags, Rating, Review, Reports, Customer, Wishlist],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

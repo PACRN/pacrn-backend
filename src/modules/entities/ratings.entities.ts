@@ -1,22 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Provider } from './providers.entities';
+
 
 @Entity()
-export class Ratings {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class Rating {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: 'int', nullable: true })
-    overall?: number;
+  @Column("float")
+  overall: number;
 
-    @Column({ type: 'int', nullable: true })
-    healthInspection?: number;
+  @Column("float")
+  healthInspection: number;
 
-    @Column({ type: 'int', nullable: true })
-    qualityMeasure?: number;
+  @Column("float")
+  qualityMeasure: number;
 
-    @Column({ type: 'int', nullable: true })
-    staffRating?: number;
+  @Column("float")
+  staffRating: number;
 
-    @Column({ type: 'int', nullable: true })
-    longStayQuality?: number;
+  @Column("float")
+  longStayQuality: number;
+
+  @OneToOne(() => Provider, provider => provider.ratings)
+  @JoinColumn()
+  provider: Provider;
 }

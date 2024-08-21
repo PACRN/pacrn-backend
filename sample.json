@@ -1,0 +1,58 @@
+{
+    "id": 1,
+    "name": "Best Health Clinic",
+    "phone": "987-654-3210",
+    "email": "info@besthealthclinic.com",
+    "website": "www.besthealthclinic.com",
+    "images": "clinic.jpg",
+    "additionalInfo": {
+      "services": [
+        "Dental",
+        "Vision",
+        "General"
+      ]
+    },
+    "reviews": [
+        {
+            "id": 1,
+            "source": "google",
+            "rating": 4.5,
+            "review": "Best clinic ever"
+        },
+        {
+            "id": 2,
+            "source": "google",
+            "rating": 4,
+            "review": "Good hospitality"
+        }
+    ],
+    "tags": [
+        "Verified",
+        "Recommended",
+        "Most Rated"
+    ],
+    "ratings": {
+      "id": 1,
+      "overall": 85,
+      "healthInspection": 90,
+      "qualityMeasure": 80,
+      "staffRating": 88,
+      "longStayQuality": 75
+    },
+    "location": {
+      "id": 1,
+      "doorNo": "100",
+      "street": "Main St",
+      "city": "Springfield",
+      "state": "IL",
+      "country": "USA",
+      "zipcode": "62704",
+      "latitude": "39.7817",
+      "longitude": "-89.6501"
+    },
+    "careType": [
+        "Old age care",
+        "Pediatric care",
+        "General care"
+    ]
+  }

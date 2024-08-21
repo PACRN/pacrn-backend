@@ -1,31 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Provider } from './providers.entities';
+
 
 @Entity()
 export class Location {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: 'varchar', length: 255 })
-    doorNo: string;
+  @Column()
+  doorNo: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    street: string;
+  @Column()
+  street: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    city: string;
+  @Column()
+  city: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    state: string;
+  @Column()
+  state: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    country: string;
+  @Column()
+  country: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    zipcode: string;
+  @Column()
+  zipcode: string;
 
-    @Column({ type: 'varchar', length: 255 })
-    latitude: string;
+  @Column("float")
+  latitude: number;
 
-    @Column({ type: 'varchar', length: 255 })
-    longitude: string;
+  @Column("float")
+  longitude: number;
+
+  @OneToOne(() => Provider, provider => provider.location)
+  @JoinColumn()
+  provider: Provider;
 }

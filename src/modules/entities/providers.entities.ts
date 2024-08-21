@@ -1,75 +1,44 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from "typeorm";
-import { CareTypes } from "./careTypes.entities";
-import { Ratings } from "./ratings.entities";
-import { Reports } from "./reports.entities";
-import { Reviews } from "./reviews.entities";
-import { Tags } from "./tags.entities";
-import { Location } from "./location.entities";
-import 'reflect-metadata';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
+import { Review } from './reviews.entities';
+import { Rating } from './ratings.entities';
+import { Location } from './location.entities';
 
 
 @Entity()
-export class Providers {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+export class Provider {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: 'text' })
-    name: string;
+  @Column()
+  name: string;
 
-    @Column({ type: 'bigint' })
-    careTypeId: number;
+  @Column()
+  phone: string;
 
-    @Column({ type: 'text' })
-    phone: string;
+  @Column()
+  email: string;
 
-    @Column({ type: 'bigint' })
-    locationId: number;
+  @Column()
+  website: string;
 
-    @Column({ type: 'bigint' })
-    tagsId: number;
+  @Column()
+  images: string;
 
-    @Column({ type: 'text', nullable: true })
-    images?: string;
+  @Column("simple-array")
+  services: string[];
 
-    @Column({ type: 'varchar', length: 255 })
-    email: string;
+  @OneToMany(() => Review, review => review.provider)
+  reviews: Review[];
 
-    @Column({ type: 'varchar', length: 255, nullable: true })
-    website?: string;
+  @Column("simple-array")
+  tags: string[];
 
-    @Column({ type: 'bigint', nullable: true })
-    ratingsId?: number;
+  @OneToOne(() => Rating, rating => rating.provider, { cascade: true })
+  ratings: Rating[];
 
-    @Column({ type: 'bigint', nullable: true })
-    reviewsId?: number;
+  @OneToOne(() => Location, location => location.provider, { cascade: true })
+  location: Location;
 
-    @Column({ type: 'bigint', nullable: true })
-    reportId?: number;
-
-    @Column({ type: 'json' })
-    additionalInfo: any;
-
-    @ManyToOne(() => CareTypes)
-    @JoinColumn({ name: 'careTypeId' })
-    careType?: CareTypes[];
-
-    @ManyToOne(() => Location)
-    @JoinColumn({ name: 'locationId' })
-    location?: Location;
-
-    @ManyToOne(() => Tags)
-    @JoinColumn({ name: 'tagsId' })
-    tags?: Tags[];
-
-    @OneToOne(() => Ratings)
-    @JoinColumn({ name: 'ratingsId' })
-    ratings?: Ratings;
-
-    @OneToOne(() => Reviews)
-    @JoinColumn({ name: 'reviewsId' })
-    reviews?: Reviews[];
-
-    @OneToOne(() => Reports)
-    @JoinColumn({ name: 'reportId' })
-    report?: Reports[];
+  @Column("simple-array")
+  careTypes: string[];
 }
