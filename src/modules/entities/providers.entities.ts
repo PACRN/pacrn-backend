@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColum
 import { Review } from './reviews.entities';
 import { Rating } from './ratings.entities';
 import { Location } from './location.entities';
+import { Question } from './question.entities';
 
 
 @Entity()
@@ -39,6 +40,11 @@ export class Provider {
   @OneToOne(() => Location, location => location.provider, { cascade: true })
   location: Location;
 
-  @Column("simple-array")
-  careTypes: string[];
+  @OneToMany(() => Question, question => question.provider)
+  question: Question[];
+
+  @Column({ nullable: true })
+  careTypes: string;
+
+  miles?: number;
 }

@@ -1,16 +1,6 @@
 import { parentPort } from 'worker_threads';
 
-interface Location {
-    address: string;
-    lat: number;
-    lon: number;
-}
 
-interface WorkerData {
-    currentLocation: Location;
-    locations: Location[];
-    radiusInKm: number;
-}
 
 // Function to convert degrees to radians
 function deg2rad(deg: number): number {
@@ -32,18 +22,32 @@ function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon
 }
 
 // Listen for messages from the parent thread
-parentPort?.on('message', (data: WorkerData) => {
-    const { currentLocation, locations, radiusInKm } = data;
-    const nearbyLocations = locations.filter(location => {
-        const distance = getDistanceFromLatLonInKm(
-            currentLocation.lat,
-            currentLocation.lon,
-            location.lat,
-            location.lon
-        );
-        return distance <= radiusInKm;
-    });
+parentPort?.on('message', (data) => {
+    try {
+        if (!data.currentLocation || !data.locations) {
+            console.log("Data structure mismatch:", data);
+            parentPort?.postMessage([]);
+            return;
+        }
 
-    // Send the result back to the parent thread
-    parentPort?.postMessage(nearbyLocations);
+        console.log(data)
+        const { currentLocation, locations, radiusInKm } = data;
+        console.log("1")
+        const nearbyLocations = locations.filter(location => {
+            const distance = getDistanceFromLatLonInKm(
+                currentLocation.lat,
+                currentLocation.lon,
+                location.location.latitude,
+                location.location.longitude
+            );
+            return distance <= radiusInKm;
+        });
+        console.log("2")
+
+        // Send the result back to the parent thread
+        parentPort?.postMessage(nearbyLocations);
+    } catch (error) {
+        console.error("Error processing message:", error);
+        parentPort?.postMessage([]); // Send an empty response or an error message
+    }
 });

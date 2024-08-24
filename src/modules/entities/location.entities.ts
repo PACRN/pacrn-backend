@@ -34,4 +34,5 @@ export class Location {
   @OneToOne(() => Provider, provider => provider.location)
   @JoinColumn()
   provider: Provider;
+  
 }

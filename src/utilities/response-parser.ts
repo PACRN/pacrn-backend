@@ -1,6 +1,14 @@
 import { Response } from 'express';
 
 export function Success({ statusCode = 200, res, message, data = {} }: { res: Response, message: string, statusCode?: number, data?: Object }) {
+    if (Array.isArray(data)) {
+        return res.status(statusCode).json({
+            status: 'success',
+            message,
+            count: data.length,
+            data: data
+        });
+    }
     return res.status(statusCode).json({
         status: 'success',
         message,

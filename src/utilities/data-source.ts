@@ -14,6 +14,8 @@ import { Review } from '../modules/entities/reviews.entities';
 import { Reports } from '../modules/entities/reports.entities';
 import { Customer } from '../modules/entities/customer.entities';
 import { Wishlist } from '../modules/entities/wishlist.entities';
+import { Question } from '../modules/entities/question.entities';
+import { Response } from '../modules/entities/response.entities';
 
 
 export const AppDataSource = new DataSource({
@@ -26,7 +28,7 @@ export const AppDataSource = new DataSource({
   database: process.env.POSTGRES_DB,
   entities: [Provider, CareType, Cares, 
     Tenant, TenantConfigurations, Subscriptions,
-    Location, Tags, Rating, Review, Reports, Customer, Wishlist],
+    Location, Tags, Rating, Review, Reports, Customer, Wishlist, Question, Response],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',
