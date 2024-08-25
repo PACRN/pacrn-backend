@@ -137,6 +137,4 @@ export class ProvidersService extends BaseService<Provider> {
             throw error;
         }
     }
-    
-
 }

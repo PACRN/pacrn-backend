@@ -1,3 +1,5 @@
+import { GeoType } from "../types/geoType";
+
 export const urlConcatinator = (data: string[], seperator: string) => {
     let result: string = "";
     data.forEach((value: string, index: number) => {
@@ -15,4 +17,15 @@ export const generateRandomToken = async () => {
         token += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return token;
+}
+
+export const convertGeoTypesToNumber = (lat: string, lon: string): GeoType => {
+    return {
+        lat: convertStringToGeo(lat),
+        lon: convertStringToGeo(lon)
+    }
+}
+
+function convertStringToGeo(geo: string): number {
+    return parseFloat(geo as string)
 }

@@ -1,6 +1,5 @@
 import swaggerParser from 'swagger-parser';
 import swStats from 'swagger-stats';
-
   
   export async function loadMonitoringModule(app: any): Promise<void> {
     let options = {

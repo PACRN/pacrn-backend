@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Fail, Success } from "../../utilities/response-parser";
 import { ProvidersService } from '../../modules/services/providers.service';
 import { Container } from 'typedi';
+import { convertGeoTypesToNumber } from '../../utilities/helpers';
 
 export const GetAllProviders = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -45,9 +46,9 @@ export const FindProvidersByCare = async (req: Request, res: Response, next: Nex
 export const GetNearestProviders = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const providersService = Container.get(ProvidersService);
-        const { careType, radius, currentLocation } = req.body;
-        const pagination = { page: parseInt(req.query.page as string) || 1, pageSize: parseInt(req.query.pageSize as string) || 10 };
-        let data = await providersService.GetNearestProviders(careType, parseInt(radius), currentLocation, pagination);
+        const { page, pageSize, careType, radius, lat, lon } = req.query;
+        const pagination = { page: parseInt(page as string) || 1, pageSize: parseInt(pageSize as string) || 10 };
+        let data = await providersService.GetNearestProviders(careType as string, parseInt(radius as string), convertGeoTypesToNumber(lat as string, lon as string), pagination);
         Success({ res, message: 'Fetched Successfully', data: data });
     } catch (error) {
         next(error);
