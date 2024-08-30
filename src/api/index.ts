@@ -7,6 +7,7 @@ import { FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider 
 import { AddCareType, CreateCare, DeleteCare, GetCares, UpdateCare } from './routes/care';
 import { bodyValidator, paramValidator, queryValidator } from '../utilities/validator';
 import { createCareSchema, idSchema, NearestProviderSchema } from './validators';
+import { GetAllReviews } from './routes/review';
 
 export default async (app: any) => {
 
@@ -23,7 +24,10 @@ export default async (app: any) => {
   app.get('/api/cares/delete/:id', DeleteCare);
   app.post('/api/cares/caretype/add', AddCareType);
 
+  app.get('/api/reviews/all', GetAllReviews)
+
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
+
 }
 
 

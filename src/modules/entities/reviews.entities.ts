@@ -3,18 +3,18 @@ import { Provider } from './providers.entities';
 
 @Entity()
 export class Review {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   source: string;
 
-  @Column("float")
+  @Column({ type: 'bigint', nullable: true })
   rating: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   review: string;
 
-  @ManyToOne(() => Provider, provider => provider.reviews)
+  @ManyToOne(() => Provider, provider => provider.id)
   provider: Provider;
 }
