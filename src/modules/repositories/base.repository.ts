@@ -30,4 +30,9 @@ export class BaseRepository<T extends ObjectLiteral> {
     async delete(id: number): Promise<void> {
         await this.repository.delete(id);
     }
+
+    async createAll(entity: DeepPartial<T[]>): Promise<T[]> {
+        const newEntity = this.repository.create(entity)
+        return this.repository.save(newEntity)
+    }
 }
