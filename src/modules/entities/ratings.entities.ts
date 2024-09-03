@@ -22,7 +22,4 @@ export class Rating {
   @Column("float")
   longStayQuality: number;
 
-  @OneToOne(() => Provider, provider => provider.ratings)
-  @JoinColumn()
-  provider: Provider;
 }

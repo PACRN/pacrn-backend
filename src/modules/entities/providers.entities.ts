@@ -1,50 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
-import { Review } from './reviews.entities';
-import { Rating } from './ratings.entities';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Location } from './location.entities';
-import { Question } from './question.entities';
+import { ProviderImage } from './providerImage.entities';
 
 
 @Entity()
 export class Provider {
-  @PrimaryGeneratedColumn()
+
+  @PrimaryGeneratedColumn('increment')
   id: number;
+
+  @Column({ unique: true })
+  code: string;
 
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
-  @Column()
-  website: string;
-
-  @Column()
-  images: string;
+  @OneToMany(() => ProviderImage, providerImage => providerImage.providerCode)
+  images: ProviderImage[];
 
   @Column("simple-array")
   services: string[];
 
-  @OneToMany(() => Review, review => review.provider)
-  reviews: Review[];
-
-  @Column("simple-array")
-  tags: string[];
-
-  @OneToOne(() => Rating, rating => rating.provider, { cascade: true })
-  ratings: Rating[];
-
-  @OneToOne(() => Location, location => location.provider, { cascade: true })
-  location: Location;
-
-  @OneToMany(() => Question, question => question.provider)
-  question: Question[];
-
   @Column({ nullable: true })
-  careTypes: string;
+  tags: string;
 
   miles?: number;
+
+  @OneToMany(() => Location, location => location.provider)
+  locations: Location[];
 }

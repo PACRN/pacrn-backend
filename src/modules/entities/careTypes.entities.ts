@@ -9,6 +9,9 @@ export class CareType {
   @Column()
   name: string;
 
+  @Column({ default: false })
+  isActive: boolean;
+
   @ManyToOne(() => Cares, cares => cares.id)
   @JoinColumn()
   care: Cares;

@@ -72,7 +72,8 @@ export class CareService extends BaseService<Cares> {
             let careTypeData: CareType = {
                 id: null,
                 name: careType.name,
-                care: care
+                care: care,
+                isActive: false
             }
 
             let data = await this.careTypeRepository.create(careTypeData);

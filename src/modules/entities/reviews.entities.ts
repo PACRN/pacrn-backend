@@ -15,6 +15,6 @@ export class Review {
   @Column({ type: 'varchar' })
   review: string;
 
-  @ManyToOne(() => Provider, provider => provider.id)
-  provider: Provider;
+  // @ManyToOne(() => Provider, provider => provider.code)
+  // provider: Provider;
 }

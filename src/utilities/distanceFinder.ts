@@ -23,14 +23,14 @@ function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon
 
 export function calculateNearest(currentLocation: GeoType, locations: Provider[], radiusInKm: number) {
     const nearbyLocations = locations.filter(location => {
-        const distance = getDistanceFromLatLonInKm(
-            currentLocation.lat,
-            currentLocation.lon,
-            location.location.latitude,
-            location.location.longitude
-        );
-        location.miles = parseFloat(distance.toFixed(2))
-        return distance <= radiusInKm;
+        // const distance = getDistanceFromLatLonInKm(
+        //     currentLocation.lat,
+        //     currentLocation.lon,
+        //     location.location.latitude,
+        //     location.location.longitude
+        // );
+        // location.miles = parseFloat(distance.toFixed(2))
+        // return distance <= radiusInKm;
     });
     return nearbyLocations;
 }

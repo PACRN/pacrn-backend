@@ -1,17 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Provider } from './providers.entities';
 
 
 @Entity()
 export class Location {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
-  doorNo: string;
-
-  @Column()
-  street: string;
+  address: string;
 
   @Column()
   city: string;
@@ -23,7 +20,7 @@ export class Location {
   country: string;
 
   @Column()
-  zipcode: string;
+  postalCode: string;
 
   @Column("float")
   latitude: number;
@@ -31,8 +28,17 @@ export class Location {
   @Column("float")
   longitude: number;
 
-  @OneToOne(() => Provider, provider => provider.location)
-  @JoinColumn()
+  @Column()
+  providerCode: string;
+
+  @Column({default: false})
+  isSecondary: boolean;
+
+  @Column()
+  addressTypeId: number;
+
+  @ManyToOne(() => Provider, provider => provider.locations)
+  @JoinColumn({ name: 'providerCode', referencedColumnName: 'code' })
   provider: Provider;
   
 }

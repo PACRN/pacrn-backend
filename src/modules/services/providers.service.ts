@@ -22,14 +22,7 @@ export class ProvidersService extends BaseService<Provider> {
             };
 
             let data = await this.repository.findAll({
-                relations: {
-                    'reviews': true,
-                    'ratings': true,
-                    'location': true,
-                    'question': {
-                        answers: true
-                    }
-                },
+                
                 ...queryPagination
             });
 
@@ -44,12 +37,7 @@ export class ProvidersService extends BaseService<Provider> {
         try {
             let data = await this.repository.findOne(id, {
                 relations: {
-                    'reviews': true,
-                    'ratings': true,
-                    'location': true,
-                    'question': {
-                        answers: true
-                    }
+                    locations: true
                 }
             });
             return data;
@@ -67,16 +55,13 @@ export class ProvidersService extends BaseService<Provider> {
             
             let data = await this.providersRepository.findAll({
                 where: {
-                    careTypes: Like(`%${careType}%`)
+                    services: Like(`%${careType}%`)
                 },
                 relations: {
-                    'reviews': true,
-                    'ratings': true,
-                    'location': true,
-                    'question': {
-                        answers: true
-                    }
+                    'images': true,
+                    'locations': true
                 },
+
                 ...queryPagination
             });
             return data;
@@ -95,14 +80,9 @@ export class ProvidersService extends BaseService<Provider> {
             // Fetch the initial subset of providers that match the careType
             let providers: Provider[] = await this.providersRepository.findAll({
                 where: {
-                    careTypes: Like(`%${careType}%`)
+                    services: Like(`%${careType}%`)
                 },
-                relations: {
-                    'reviews': true,
-                    'ratings': true,
-                    'location': true,
-                    'question': true 
-                },
+                
                 ...queryPagination // Apply pagination directly in the query
             });
     

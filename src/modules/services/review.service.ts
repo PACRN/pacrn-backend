@@ -12,18 +12,7 @@ export class ReviewService extends BaseService<Review> {
     public async GetReviews(): Promise<Review[]> {
         try {
             let data = this.repository.findAll({
-                relations: {
-                    'provider': true
-                },
-                select: {
-                    id: true,
-                    'review': true,
-                    'rating': true,
-                    'provider': {
-                        id: true,
-                        'name': true
-                    }
-                }
+               
             })
             return data
         }

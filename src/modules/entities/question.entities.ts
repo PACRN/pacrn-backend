@@ -10,8 +10,6 @@ export class Question {
     @Column()
     question: string;
 
-    @ManyToOne(() => Provider, provider => provider.question)
-    provider: Provider;
 
     @OneToMany(() => Response, answer => answer.question)
     answers: Response[];
