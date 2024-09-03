@@ -15,6 +15,9 @@ export class Review {
   @Column({ type: 'varchar' })
   review: string;
 
-  // @ManyToOne(() => Provider, provider => provider.code)
-  // provider: Provider;
+  @Column({ type: 'bigint', nullable: true })
+  scrappedId: number;
+
+  @ManyToOne(() => Provider, provider => provider.id)
+  provider: Provider;
 }
