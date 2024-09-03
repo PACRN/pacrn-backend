@@ -2,10 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
 
-
 @Entity()
 export class Provider {
-
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -21,7 +19,7 @@ export class Provider {
   @Column({ nullable: true })
   email: string;
 
-  @OneToMany(() => ProviderImage, providerImage => providerImage.providerCode)
+  @OneToMany(() => ProviderImage, providerImage => providerImage.provider)
   images: ProviderImage[];
 
   @Column("simple-array")

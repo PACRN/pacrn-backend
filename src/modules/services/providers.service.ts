@@ -36,9 +36,7 @@ export class ProvidersService extends BaseService<Provider> {
     public async GetProvider(id: number): Promise<Provider> {
         try {
             let data = await this.repository.findOne(id, {
-                relations: {
-                    locations: true
-                }
+                relations: ['images', 'locations'], 
             });
             return data;
         } catch (error) {
@@ -57,10 +55,7 @@ export class ProvidersService extends BaseService<Provider> {
                 where: {
                     services: Like(`%${careType}%`)
                 },
-                relations: {
-                    'images': true,
-                    'locations': true
-                },
+                relations: ['images', 'locations'], 
 
                 ...queryPagination
             });
@@ -82,7 +77,7 @@ export class ProvidersService extends BaseService<Provider> {
                 where: {
                     services: Like(`%${careType}%`)
                 },
-                
+                relations: ['images', 'locations'], 
                 ...queryPagination // Apply pagination directly in the query
             });
     

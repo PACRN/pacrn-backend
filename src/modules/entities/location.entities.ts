@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Provider } from './providers.entities';
 
-
 @Entity()
 export class Location {
   @PrimaryGeneratedColumn('increment')
@@ -28,6 +27,10 @@ export class Location {
   @Column("float")
   longitude: number;
 
+  @ManyToOne(() => Provider, provider => provider.locations)
+  @JoinColumn({ name: 'providerCode', referencedColumnName: 'code' }) // Correctly defines the foreign key column
+  provider: Provider;
+
   @Column()
   providerCode: string;
 
@@ -36,9 +39,4 @@ export class Location {
 
   @Column()
   addressTypeId: number;
-
-  @ManyToOne(() => Provider, provider => provider.locations)
-  @JoinColumn({ name: 'providerCode', referencedColumnName: 'code' })
-  provider: Provider;
-  
 }
