@@ -21,18 +21,32 @@ function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon
     return distance;
 }
 
-export function calculateNearest(currentLocation: GeoType, locations: Provider[], radiusInKm: number) {
-    const nearbyLocations = locations.filter(location => {
-        // const distance = getDistanceFromLatLonInKm(
-        //     currentLocation.lat,
-        //     currentLocation.lon,
-        //     location.location.latitude,
-        //     location.location.longitude
-        // );
-        // location.miles = parseFloat(distance.toFixed(2))
-        // return distance <= radiusInKm;
+export async function calculateNearest(currentLocation: GeoType, locations: Provider[], radiusInKm: number) {
+    const distancePromises = locations.map(async (location) => {
+        if (location.locations.length <= 0) {
+            location.miles = 0;
+            return null; // Filter out later
+        }
+
+        // Assume getDistanceFromLatLonInKm is an async function
+        const distance = await getDistanceFromLatLonInKm(
+            currentLocation.lat,
+            currentLocation.lon,
+            location.locations[0].latitude,
+            location.locations[0].longitude
+        );
+
+        location.miles = parseFloat((distance / 1.60934).toFixed(2));
+
+        // Return the location object if within the radius, otherwise null
+        return distance <= radiusInKm ? location : null;
     });
-    return nearbyLocations;
+
+    // Wait for all promises to resolve
+    const results = await Promise.all(distancePromises);
+
+    // Filter out null results
+    return results.filter(location => location !== null);
 }
 
 // Function to run the worker
