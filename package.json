@@ -1,7 +1,6 @@
 {
-  "name": "jwt_auth_node_typeorm",
+  "name": "pacrn_backend",
   "version": "1.0.0",
-  "license": "MIT",
   "main": "dist/main.js",
   "files": [
     "dist"

@@ -1,10 +1,13 @@
-FROM node:14-alpine
+FROM node:18-alpine
 # RUN apk add --no-cache python2 g++ make
 RUN mkdir -p /app
 WORKDIR /app
 COPY . .
-RUN yarn install
 
-RUN yarn build
-# RUN yarn create-db
-# RUN yarn migrations
+RUN npm install
+
+RUN npm run build
+
+EXPOSE 80
+
+CMD ["npm", "run", "dev-run"]

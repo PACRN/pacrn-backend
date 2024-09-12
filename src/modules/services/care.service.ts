@@ -13,24 +13,27 @@ export class CareService extends BaseService<Cares> {
         @Inject(() => CareTypeRepository) private careTypeRepository: CareTypeRepository
     ) { super(careRepository) }
 
-    public async GetCares(): Promise<Cares[]> {
+    public async GetCares() {
         try {
             let data = await this.repository.findAll({
-                relations: {
-                    'careTypes': true
-                },
+                relations: ['careTypes'], // Fetch related careTypes
                 select: {
-                    'name': true,
-                    'careTypes': {
-                        'name': true,
-                        id: true
-                    }
-                }
-            })
-
-            return data;
+                    name: true, // Select specific fields for the Cares entity
+                    careTypes: {
+                        name: true, // Select specific fields for the related careTypes entity
+                    },
+                },
+            });
+    
+            // Post-process the data to transform careTypes into an array of names
+            const transformedData = data.map(care => ({
+                name: care.name,
+                careTypes: care.careTypes.map(ct => ct.name), // Map careTypes to an array of names
+            }));
+    
+            return transformedData;
         } catch (error) {
-            throw error
+            throw error;
         }
     }
 

@@ -38,7 +38,7 @@ export async function handleGlobalErrors(app: any) {
 
 export async function useCors(app: any) {
     app.use(
-        cors({ origin: "http://localhost:7000", credentials: true })
+        cors({ origin: "*" })
     );
 }
 
