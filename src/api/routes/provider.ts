@@ -54,3 +54,14 @@ export const GetNearestProviders = async (req: Request, res: Response, next: Nex
         next(error);
     }
 }
+
+export const GetQnAForProvider = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const providersService = Container.get(ProvidersService);
+        const { code } = req.params;
+        let data = await providersService.GetQnAForProvider(code);
+        Success({ res, message: 'Fetched Successfully', data: data });
+    } catch (error) {
+        next(error);
+    }
+}

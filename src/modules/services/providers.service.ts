@@ -8,11 +8,14 @@ import { GeoType } from '../../types/geoType';
 import { calculateNearest, runWorker } from '../../utilities/distanceFinder';
 import { PaginationParams } from '../../types/paginationParams';
 import { ListResponse } from '../../types/listResponseType';
+import { Section } from '../entities/section.entities';
+import { SectionRepository } from '../repositories/section.repository';
 
 @Service()
 export class ProvidersService extends BaseService<Provider> {
     constructor(
-        @Inject(() => ProvidersRepository) private providersRepository: ProvidersRepository
+        @Inject(() => ProvidersRepository) private providersRepository: ProvidersRepository,
+        @Inject(() => SectionRepository) private sectionRepository: SectionRepository
     ) { super(providersRepository) }
 
     public async GetAllProviders(pagination: PaginationParams): Promise<Provider[]> {
@@ -177,6 +180,22 @@ export class ProvidersService extends BaseService<Provider> {
         } catch (error) {
             throw error;
         }
+    }
+
+    public async GetQnAForProvider(code: string): Promise<Section[]> {
+        
+       const sections = await this.sectionRepository.findAll({
+            where: {
+                code: code
+            },
+            relations: [
+                'subSections',
+                'subSections.questions',
+                'subSections.questions.responses'
+              ],
+        })
+
+        return sections;
     }
 
 }

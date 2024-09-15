@@ -1,14 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Question } from "./question.entities";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Question } from './question.entities';
 
 @Entity()
 export class Response {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
-    response: string;
+    @Column({ nullable: true })
+    responseText: string;
 
-    @ManyToOne(() => Question, question => question.answers)
+    @ManyToOne(() => Question, (question) => question.responses)
     question: Question;
 }

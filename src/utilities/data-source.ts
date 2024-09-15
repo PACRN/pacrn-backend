@@ -19,6 +19,8 @@ import { Response } from '../modules/entities/response.entities';
 import { ProviderImage } from '../modules/entities/providerImage.entities';
 import { ImageType } from '../modules/entities/imageType.entities';
 import { AddressType } from '../modules/entities/addressType.entities';
+import { Section } from '../modules/entities/section.entities';
+import { SubSection } from '../modules/entities/subSection.entities';
 
 
 export const AppDataSource = new DataSource({
@@ -33,7 +35,7 @@ export const AppDataSource = new DataSource({
   entities: [Provider, CareType, Cares, 
     Tenant, TenantConfigurations, Subscriptions,
     Location, Tags, Rating, Review, Reports, Customer,
-    Wishlist, Question, Response, ProviderImage, ImageType, AddressType],
+    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

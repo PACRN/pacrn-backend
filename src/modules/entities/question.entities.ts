@@ -1,16 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Provider } from "./providers.entities";
-import { Response } from "./response.entities";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { SubSection } from './subSection.entities';
+import { Response } from './response.entities';
 
 @Entity()
 export class Question {
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column()
-    question: string;
+  @Column('text')
+  questionText: string;
 
+  @ManyToOne(() => SubSection, (subSection) => subSection.questions)
+  subSection: SubSection;
 
-    @OneToMany(() => Response, answer => answer.question)
-    answers: Response[];
+  @OneToMany(() => Response, (response) => response.question)
+  responses: Response[];
 }
