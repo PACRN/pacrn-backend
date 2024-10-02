@@ -22,4 +22,6 @@ export class Rating {
   @Column("float")
   longStayQuality: number;
 
+  
+
 }

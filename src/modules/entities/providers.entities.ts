@@ -32,4 +32,7 @@ export class Provider {
 
   @OneToMany(() => Location, location => location.provider)
   locations: Location[];
+
+  @Column('geography', { spatialFeatureType: 'Point', srid: 4326, nullable: true })
+  location: string;
 }

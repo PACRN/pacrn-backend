@@ -131,51 +131,42 @@ export class ProvidersService extends BaseService<Provider> {
 
     public async GetNearestProviders(careType: string, radius: number = 5, currentLocation: GeoType, pagination: PaginationParams): Promise<ListResponse> {
         try {
-            // Fetch all providers that match the careType without applying pagination
-            let providersRepository = await this.providersRepository.source.getRepository(Provider);
+            const query = `SELECT * FROM get_nearest_providers($1, $2, $3, $4, $5, $6);`;
 
-            // Calculate the conversion from miles to kilometers
-            const radiusInKm = radius * 1.60934;
+            const result = await this.providersRepository.source.query(query, [
+                currentLocation.lat,
+                currentLocation.lon,
+                radius,
+                pagination.pageSize,
+                pagination.page,
+                careType
+            ]);
 
-            const providers = await providersRepository.createQueryBuilder('provider')
-                .leftJoinAndSelect('provider.images', 'images')
-                .leftJoinAndSelect('provider.locations', 'locations')
-                .where('provider.services LIKE :careType', { careType: `%${careType}%` })
-                .andWhere(`get_distance_from_lat_lon_km(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radiusInKm}`)
-                .select([
-                    'provider.id',
-                    'provider.code',
-                    'provider.name',
-                    'provider.phone',
-                    'provider.email',
-                    'provider.services',
-                    'provider.tags',
-                    'images.imagePath',
-                    'images.imageOrder',
-                    'locations.address',
-                    'locations.city',
-                    'locations.state',
-                    'locations.country',
-                    'locations.postalCode',
-                    'locations.latitude',
-                    'locations.longitude'
-                ])
-                .addSelect(`get_distance_from_lat_lon_km(:refLat, :refLon, locations.latitude, locations.longitude)`, 'distance')
-                .setParameter('refLat', currentLocation.lat)
-                .setParameter('refLon', currentLocation.lon)
-                .orderBy('distance', 'ASC') // Optional: Order by distance
-                .getMany();
+            const count = result.length > 0 ? result[0].total_count : 0;
 
-
-            // Apply pagination to get the first pageSize results
-            const queryPagination = {
-                skip: (pagination.page - 1) * pagination.pageSize,
-                take: pagination.pageSize
-            };
+            const data = result.map(row => ({
+                id: row.id,
+                code: row.code,
+                name: row.name,
+                phone: row.phone,
+                email: row.email,
+                services: row.services,
+                tags: row.tags,
+                location: row.location,
+                address: row.address,
+                city: row.city,
+                state: row.state,
+                country: row.country,
+                postalCode: row.postalCode,
+                latitude: row.latitude,
+                longitude: row.longitude,
+                imagePaths: row.imagepaths,
+                total_count: row.total_count,
+            }));
 
             return {
-                data: providers.slice(queryPagination.skip, queryPagination.skip + queryPagination.take),
-                total: providers.length
+                data: data,
+                total: count
             };
         } catch (error) {
             throw error;
@@ -183,8 +174,8 @@ export class ProvidersService extends BaseService<Provider> {
     }
 
     public async GetQnAForProvider(code: string): Promise<Section[]> {
-        
-       const sections = await this.sectionRepository.findAll({
+
+        const sections = await this.sectionRepository.findAll({
             where: {
                 code: code
             },
@@ -192,7 +183,7 @@ export class ProvidersService extends BaseService<Provider> {
                 'subSections',
                 'subSections.questions',
                 'subSections.questions.responses'
-              ],
+            ],
         })
 
         return sections;
