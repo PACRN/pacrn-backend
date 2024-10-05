@@ -10,12 +10,16 @@ import { PaginationParams } from '../../types/paginationParams';
 import { ListResponse } from '../../types/listResponseType';
 import { Section } from '../entities/section.entities';
 import { SectionRepository } from '../repositories/section.repository';
+import { LocationRepository } from '../repositories/location.repository';
+import { ImageRepository } from '../repositories/images.repository';
 
 @Service()
 export class ProvidersService extends BaseService<Provider> {
     constructor(
         @Inject(() => ProvidersRepository) private providersRepository: ProvidersRepository,
-        @Inject(() => SectionRepository) private sectionRepository: SectionRepository
+        @Inject(() => SectionRepository) private sectionRepository: SectionRepository,
+        @Inject(() => ImageRepository) private imageRepository: ImageRepository,
+        @Inject(() => LocationRepository) private locationRepository: LocationRepository
     ) { super(providersRepository) }
 
     public async GetAllProviders(pagination: PaginationParams): Promise<Provider[]> {
@@ -131,42 +135,75 @@ export class ProvidersService extends BaseService<Provider> {
 
     public async GetNearestProviders(careType: string, radius: number = 5, currentLocation: GeoType, pagination: PaginationParams): Promise<ListResponse> {
         try {
-            const query = `SELECT * FROM get_nearest_providers($1, $2, $3, $4, $5, $6);`;
+            const radiusInMeters = radius * 1609.34;
 
-            const result = await this.providersRepository.source.query(query, [
-                currentLocation.lat,
-                currentLocation.lon,
-                radius,
-                pagination.pageSize,
-                pagination.page,
-                careType
-            ]);
+            const providers = await this.providersRepository.source.createQueryBuilder()
+                .from(Provider, 'p')  // Set alias using 'from' method
+                .select([
+                    'p.id',
+                    'p.code',
+                    'p.name',
+                    'p.phone',
+                    'p.email',
+                    'p.services',
+                    'p.tags'
+                ])
+                .where(
+                    `ST_DWithin(
+                p.location, 
+                ST_SetSRID(ST_MakePoint(:lon, :lat), 4326), 
+                :radius
+              )`,
+                    { lat: currentLocation.lat, lon: currentLocation.lon, radius: radiusInMeters }
+                )
+                .andWhere('p.services ILIKE :service', { service: '%' + careType + '%' })
+                .limit(pagination.pageSize)
+                .offset(pagination.page)
+                .getMany();
 
-            const count = result.length > 0 ? result[0].total_count : 0;
+            const processedProviders = await Promise.all(
+                providers.map(async (provider) => {
+                    // Fetch locations and images concurrently for each provider
+                    const [address, images] = await Promise.all([
+                        this.locationRepository.findAll({
+                            select: [
+                                'address',
+                                'city',
+                                'country',
+                                'latitude',
+                                'longitude',
+                                'postalCode',
+                                'state'
+                            ],
+                            where: {
+                                providerCode: provider.code,
+                                addressTypeId: 1
+                            }
+                        }),
+                        this.imageRepository.findAll({
+                            select: [
+                                'imagePath',
+                                'imageCaption',
+                                'imageOrder'
+                            ],
+                            where: {
+                                providerCode: provider.code
+                            }
+                        })
+                    ]);
 
-            const data = result.map(row => ({
-                id: row.id,
-                code: row.code,
-                name: row.name,
-                phone: row.phone,
-                email: row.email,
-                services: row.services,
-                tags: row.tags,
-                location: row.location,
-                address: row.address,
-                city: row.city,
-                state: row.state,
-                country: row.country,
-                postalCode: row.postalCode,
-                latitude: row.latitude,
-                longitude: row.longitude,
-                imagePaths: row.imagepaths,
-                total_count: row.total_count,
-            }));
+                    // Add the locations and images to the provider object
+                    provider.locations = address;
+                    provider.images = images;
+
+                    return provider;
+                })
+            );
+
 
             return {
-                data: data,
-                total: count
+                data: processedProviders,
+                total: processedProviders.length
             };
         } catch (error) {
             throw error;
