@@ -22,6 +22,15 @@ export class Rating {
   @Column("float")
   longStayQuality: number;
 
-  
+  @Column("float")
+  shortStatyQuality: number;
 
+  @Column({ unique: true })
+  code: string;
+
+  @Column("text")
+  moreinfo: string;
+
+  @Column("text")
+  abusereport: string;
 }
