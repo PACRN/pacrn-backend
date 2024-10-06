@@ -38,7 +38,7 @@ export async function handleGlobalErrors(app: any) {
 
 export async function useCors(app: any) {
     app.use(
-        cors({ origin: "*" })
+        cors({ origin: "https://post-acute.azurewebsites.net" })
     );
 }
 

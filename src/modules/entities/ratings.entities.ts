@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Provider } from './providers.entities';
 
 
@@ -28,9 +28,13 @@ export class Rating {
   @Column({ unique: true })
   code: string;
 
-  @Column("text")
+  @OneToOne(() => Provider, provider => provider.rating)
+  @JoinColumn({ name: 'code', referencedColumnName: 'code' }) // Correctly defines the foreign key column
+  provider: Provider;
+
+  @Column("text", { nullable: true })
   moreinfo: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   abusereport: string;
 }

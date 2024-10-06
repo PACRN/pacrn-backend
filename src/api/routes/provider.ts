@@ -48,7 +48,7 @@ export const GetNearestProviders = async (req: Request, res: Response, next: Nex
         const providersService = Container.get(ProvidersService);
         const { page, pageSize, careType, radius, lat, lon } = req.query;
         const pagination = { page: parseInt(page as string) || 1, pageSize: parseInt(pageSize as string) || 10 };
-        let result = await providersService.GetNearestProviders(careType as string, parseInt(radius as string), convertGeoTypesToNumber(lat as string, lon as string), pagination);
+        let result = await providersService.GetNearestProvidersOptimized(careType as string, parseInt(radius as string), convertGeoTypesToNumber(lat as string, lon as string), pagination);
         Success({ res, message: 'Fetched Successfully', data: result.data, totalCount: result.total });
     } catch (error) {
         next(error);

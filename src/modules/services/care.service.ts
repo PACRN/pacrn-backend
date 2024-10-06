@@ -23,6 +23,11 @@ export class CareService extends BaseService<Cares> {
                         name: true, // Select specific fields for the related careTypes entity
                     },
                 },
+                where: {
+                    careTypes: {
+                        isActive: true
+                    }
+                }
             });
     
             // Post-process the data to transform careTypes into an array of names

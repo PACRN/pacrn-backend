@@ -44,7 +44,7 @@ export class ProvidersService extends BaseService<Provider> {
     public async GetProvider(id: number): Promise<Provider> {
         try {
             let data = await this.repository.findOne(id, {
-                relations: ['images', 'locations'],
+                relations: ['images', 'locations', 'rating'],
                 select: {
                     id: true,
                     code: true,
@@ -66,6 +66,16 @@ export class ProvidersService extends BaseService<Provider> {
                         latitude: true,
                         longitude: true,
                         addressTypeId: true
+                    },
+                    rating: {
+                        abusereport: true,
+                        healthInspection: true,
+                        longStayQuality: true,
+                        moreinfo: true,
+                        overall: true,
+                        qualityMeasure: true,
+                        shortStatyQuality: true,
+                        staffRating: true
                     }
                 },
                 order: {
@@ -128,6 +138,67 @@ export class ProvidersService extends BaseService<Provider> {
                 ...queryPagination
             });
             return data;
+        } catch (error) {
+            throw error
+        }
+    }
+
+    public async GetNearestProvidersOptimized(careType: string, radius: number = 5, currentLocation: GeoType, pagination: PaginationParams): Promise<ListResponse> {
+        try {
+            let providersRepository = await this.providersRepository.source.getRepository(Provider);
+
+            // Calculate the conversion from miles to kilometers
+            const radiusInKm = radius * 1.60934;
+
+            const providers = await providersRepository.createQueryBuilder('provider')
+                .leftJoinAndSelect('provider.images', 'images')
+                .leftJoinAndSelect('provider.locations', 'locations')
+                .leftJoinAndSelect('provider.rating', 'rating')
+                .where('provider.services LIKE :careType', { careType: `%${careType}%` })
+                .andWhere(`get_distance_from_lat_lon_km(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radiusInKm}`)
+                .select([
+                    'provider.id',
+                    'provider.code',
+                    'provider.name',
+                    'provider.phone',
+                    'provider.email',
+                    'provider.services',
+                    'provider.tags',
+                    'images.imagePath',
+                    'images.imageOrder',
+                    'locations.address',
+                    'locations.city',
+                    'locations.state',
+                    'locations.country',
+                    'locations.postalCode',
+                    'locations.latitude',
+                    'locations.longitude',
+                    'rating.overall',
+                    'rating.healthInspection',
+                    'rating.qualityMeasure',
+                    'rating.staffRating',
+                    'rating.longStayQuality',
+                    'rating.shortStatyQuality',
+                    'rating.moreinfo',
+                    'rating.abusereport'
+                ])
+                .addSelect(`get_distance_from_lat_lon_km(:refLat, :refLon, locations.latitude, locations.longitude)`, 'distance')
+                .setParameter('refLat', currentLocation.lat)
+                .setParameter('refLon', currentLocation.lon)
+                .orderBy('distance', 'ASC') // Optional: Order by distance
+                .getMany();
+
+
+            // Apply pagination to get the first pageSize results
+            const queryPagination = {
+                skip: (pagination.page - 1) * pagination.pageSize,
+                take: pagination.pageSize
+            };
+
+            return {
+                data: providers.slice(queryPagination.skip, queryPagination.skip + queryPagination.take),
+                total: providers.length
+            };
         } catch (error) {
             throw error
         }

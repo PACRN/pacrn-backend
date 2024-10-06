@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
 import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
+import { Rating } from './ratings.entities';
 
 @Entity()
 export class Provider {
@@ -21,6 +22,9 @@ export class Provider {
 
   @OneToMany(() => ProviderImage, providerImage => providerImage.provider)
   images: ProviderImage[];
+
+  @OneToOne(() => Rating, rating => rating.provider)
+  rating: Rating;
 
   @Column("simple-array")
   services: string[];
