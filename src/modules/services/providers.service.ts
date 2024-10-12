@@ -12,6 +12,8 @@ import { Section } from '../entities/section.entities';
 import { SectionRepository } from '../repositories/section.repository';
 import { LocationRepository } from '../repositories/location.repository';
 import { ImageRepository } from '../repositories/images.repository';
+import { ReportRepository } from '../repositories/report.repository';
+import { Reports } from '../entities/reports.entities';
 
 @Service()
 export class ProvidersService extends BaseService<Provider> {
@@ -19,7 +21,8 @@ export class ProvidersService extends BaseService<Provider> {
         @Inject(() => ProvidersRepository) private providersRepository: ProvidersRepository,
         @Inject(() => SectionRepository) private sectionRepository: SectionRepository,
         @Inject(() => ImageRepository) private imageRepository: ImageRepository,
-        @Inject(() => LocationRepository) private locationRepository: LocationRepository
+        @Inject(() => LocationRepository) private locationRepository: LocationRepository,
+        @Inject(() => ReportRepository) private reportRepository: ReportRepository
     ) { super(providersRepository) }
 
     public async GetAllProviders(pagination: PaginationParams): Promise<Provider[]> {
@@ -296,6 +299,17 @@ export class ProvidersService extends BaseService<Provider> {
         })
 
         return sections;
+    }
+
+    public async SaveReport(code: string, category: string, desc: string): Promise<Reports> {
+        const reports = await this.reportRepository.create({
+            category: category,
+            code: code,
+            description: desc,
+            isResolved: false
+        })
+
+        return reports;
     }
 
 }

@@ -98,3 +98,14 @@ export const EmailSavedProvider = async (req: Request, res: Response, next: Next
         next(error)
     }
 }
+
+export const SaveReport = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const providersService = Container.get(ProvidersService);
+        const { code, category, desc } = req.body;
+        let data = await providersService.SaveReport(code, category, desc);
+        Success({ res, message: 'Saved Successfully', data: data });
+    } catch (error) {
+        next(error);
+    }
+}

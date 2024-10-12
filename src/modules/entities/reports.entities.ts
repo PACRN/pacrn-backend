@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Provider } from "./providers.entities";
 
 @Entity()
 export class Reports {
@@ -8,9 +9,16 @@ export class Reports {
     @Column({ type: 'varchar', length: 255 })
     category: string;
 
-    @Column({ type: 'varchar', length: 255, nullable: true })
+    @Column({ type: 'varchar', nullable: true })
     description?: string;
 
-    @Column({ type: 'boolean', nullable: true })
+    @Column()
+    code: string;
+
+    @ManyToOne(() => Provider, provider => provider.reports)
+    @JoinColumn({ name: 'code', referencedColumnName: 'code' })
+    provider: Provider;
+
+    @Column({ type: 'boolean', default: false })
     isResolved?: boolean;
 }

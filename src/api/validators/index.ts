@@ -17,3 +17,9 @@ export const NearestProviderSchema = Joi.object({
     lat: Joi.string().required(),
     lon: Joi.string().required()
 });
+
+export const saveReportSchema = Joi.object({
+    code: Joi.string().required(),
+    category: Joi.string().required(),
+    desc: Joi.string().empty()
+})

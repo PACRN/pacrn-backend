@@ -3,10 +3,10 @@ import { logoutHandler } from './routes/auth';
 import { deserializeUser } from '../middleware/deserializeUser';
 import { requireUser } from '../middleware/requireUser';
 import upload from 'multer';
-import { EmailSavedProvider, FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider, GetQnAForProvider } from './routes/provider';
+import { EmailSavedProvider, FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider, GetQnAForProvider, SaveReport } from './routes/provider';
 import { AddCareType, CreateCare, DeleteCare, GetCares, UpdateCare } from './routes/care';
 import { bodyValidator, paramValidator, queryValidator } from '../utilities/validator';
-import { createCareSchema, idSchema, NearestProviderSchema } from './validators';
+import { createCareSchema, idSchema, NearestProviderSchema, saveReportSchema } from './validators';
 import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
@@ -42,6 +42,8 @@ export default async (app: any) => {
   app.get('/api/provider/findProvidersByCare/:care', FindProvidersByCare);
   app.get('/api/provider/:id', paramValidator(idSchema), GetProvider);
   app.get('/api/provider/qna/:code', GetQnAForProvider);
+  app.post("/api/provider/email", uploadOptions.single("file"), EmailSavedProvider);
+  app.post("/api/provider/report", bodyValidator(saveReportSchema), SaveReport);
 
   app.get('/api/cares/all', GetCares);
   app.post('/api/cares/new', bodyValidator(createCareSchema), CreateCare);
@@ -54,6 +56,6 @@ export default async (app: any) => {
 
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
 
-  app.post("/api/provider/email", uploadOptions.single("file"), EmailSavedProvider);
+  
 
 }

@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typ
 import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
 import { Rating } from './ratings.entities';
+import { Reports } from './reports.entities';
 
 @Entity()
 export class Provider {
@@ -22,6 +23,9 @@ export class Provider {
 
   @OneToMany(() => ProviderImage, providerImage => providerImage.provider)
   images: ProviderImage[];
+
+  @OneToMany(() => Reports, reports => reports.provider)
+  reports: Reports[];
 
   @OneToOne(() => Rating, rating => rating.provider)
   rating: Rating;
