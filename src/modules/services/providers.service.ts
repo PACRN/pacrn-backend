@@ -155,6 +155,7 @@ export class ProvidersService extends BaseService<Provider> {
                 .leftJoinAndSelect('provider.locations', 'locations')
                 .leftJoinAndSelect('provider.rating', 'rating')
                 .where('provider.services LIKE :careType', { careType: `%${careType}%` })
+                .andWhere('provider."isActive" = True ')
                 .andWhere(`get_distance_from_lat_lon_km(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radiusInKm}`)
                 .select([
                     'provider.id',

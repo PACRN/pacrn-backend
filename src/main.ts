@@ -5,7 +5,7 @@ import { AppDataSource } from './utilities/data-source';
 import validateEnv from './utilities/validateEnv';
 import { loadMonitoringModule } from './utilities/swaggerStats';
 import routeConfiguration from './api';
-import { handleGlobalErrors, healthCheck, useCors, useLogger } from './utilities/service-config';
+import { handleGlobalErrors, healthCheck, useAzureStorage, useCors, useLogger, useMailer } from './utilities/service-config';
 import 'reflect-metadata';
 import Container from 'typedi';
 import { DataSource } from 'typeorm';
@@ -31,6 +31,10 @@ AppDataSource.initialize().then(async () => {
   await healthCheck(app);
 
   await handleGlobalErrors(app);
+
+  await useAzureStorage();
+
+  await useMailer();
 
   const port = config.get<number>('port');
   

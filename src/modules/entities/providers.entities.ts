@@ -39,4 +39,7 @@ export class Provider {
 
   @Column('geography', { spatialFeatureType: 'Point', srid: 4326, nullable: true })
   location: string;
+
+  @Column({nullable: true, default: true})
+  isActive: boolean;
 }

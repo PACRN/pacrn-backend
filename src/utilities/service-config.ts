@@ -2,16 +2,16 @@ require('dotenv').config();
 import { NextFunction, Request, Response } from 'express';
 import AppError from './appError';
 import cors from 'cors';
-import config from 'config';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { Fail } from './response-parser';
+import AzureBlobStorageHelper from './azureBlobStorageHelper';
+import SendGridHelper from './sendGridHelper';
+
 
 export async function healthCheck(app: any) {
     // HEALTH CHECKER
     app.get('/api/healthChecker', async (_, res: Response) => {
-        // const message = await redisClient.get('try');
-
         res.status(200).json({
             status: 'success',
             message: 'Welcome to Node.js, we are happy to see you',
@@ -38,7 +38,7 @@ export async function handleGlobalErrors(app: any) {
 
 export async function useCors(app: any) {
     app.use(
-        cors({ origin: "https://post-acute.azurewebsites.net" })
+        cors({ origin: "*" })
     );
 }
 
@@ -49,3 +49,12 @@ export async function useCookies(app: any) {
 export async function useLogger(app: any) {
     if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 }
+
+export async function useAzureStorage() {
+    AzureBlobStorageHelper.initialize();
+}
+
+export async function useMailer() {
+    SendGridHelper.initialize();
+}
+

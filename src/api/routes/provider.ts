@@ -3,6 +3,9 @@ import { Fail, Success } from "../../utilities/response-parser";
 import { ProvidersService } from '../../modules/services/providers.service';
 import { Container } from 'typedi';
 import { convertGeoTypesToNumber } from '../../utilities/helpers';
+import path from "path";
+import SendGridHelper from '../../utilities/sendGridHelper';
+import { savedProviderTemplate } from '../../utilities/EmailTemplate/EmailTemplate';
 
 export const GetAllProviders = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -63,5 +66,35 @@ export const GetQnAForProvider = async (req: Request, res: Response, next: NextF
         Success({ res, message: 'Fetched Successfully', data: data });
     } catch (error) {
         next(error);
+    }
+}
+
+export const EmailSavedProvider = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        console.log("Uploaded file:", req.file);
+        const { email } = req.body;
+        if (!req.file) {
+            return res.status(400).send({ message: "No file uploaded" });
+        }
+
+        const filePath = req.file.path;
+
+        await SendGridHelper.sendEmailWithFile(
+            email,
+            "Get your saved providers List",
+            "Please find the attached PDF file.",
+            savedProviderTemplate(email),
+            [
+                {
+                    filename: req.file.originalname,
+                    url: filePath,
+                },
+            ],
+        )
+
+        Success({ res, message: 'Emailed Successfully', data: {} });
+
+    } catch (error) {
+        next(error)
     }
 }
