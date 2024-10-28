@@ -6,10 +6,11 @@ import upload from 'multer';
 import { EmailSavedProvider, FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider, GetQnAForProvider, SaveReport } from './routes/provider';
 import { AddCareType, CreateCare, DeleteCare, GetCares, UpdateCare } from './routes/care';
 import { bodyValidator, paramValidator, queryValidator } from '../utilities/validator';
-import { createCareSchema, idSchema, NearestProviderSchema, saveReportSchema } from './validators';
+import { createCareSchema, idSchema, loginSchema, NearestProviderSchema, registerSchema, saveReportSchema } from './validators';
 import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
+import { CreateUser, loginUser } from './routes/user';
 
 export async function useUploadDir() {
   const uploadDir = path.join(__dirname, "files");
@@ -54,6 +55,8 @@ export default async (app: any) => {
   app.get('/api/reviews/all', GetAllReviews)
   app.post('/api/review/create', CreateReviews)
 
+  app.post('/api/login', bodyValidator(loginSchema), loginUser);
+  app.post('/api/user/create', bodyValidator(registerSchema), CreateUser)
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
 
   

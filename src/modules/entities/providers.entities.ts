@@ -3,6 +3,7 @@ import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
 import { Rating } from './ratings.entities';
 import { Reports } from './reports.entities';
+import { Section } from './section.entities';
 
 @Entity()
 export class Provider {
@@ -26,6 +27,9 @@ export class Provider {
 
   @OneToMany(() => Reports, reports => reports.provider)
   reports: Reports[];
+
+  @OneToMany(() => Section, section => section.provider)
+  section: Section[];
 
   @OneToOne(() => Rating, rating => rating.provider)
   rating: Rating;
