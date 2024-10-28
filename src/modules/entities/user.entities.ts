@@ -22,6 +22,12 @@ export class User {
     @Column()
     password: string;
 
+    @Column({ default: false })
+    isVerified: boolean;
+
+    @Column({ nullable: true })
+    verificationCode: string;
+
     @BeforeInsert()
     async hashPassword() {
         const secretKey = process.env.HASH_SECRET_KEY!; // Add your secret key to .env

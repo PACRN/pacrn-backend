@@ -1,5 +1,6 @@
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 import { BaseRepository } from "../repositories/base.repository";
+import { FindOneOptions } from "typeorm";
 
 export class BaseService<T> {
     protected repository: BaseRepository<T>;
@@ -14,6 +15,10 @@ export class BaseService<T> {
 
     async findOne(id: number): Promise<T | undefined> {
         return this.repository.findOne(id);
+    }
+
+    async findOneBy(options?: FindOneOptions<T>): Promise<T | undefined> {
+        return this.repository.findOneBy(options);
     }
 
     async create(entity: T): Promise<T> {

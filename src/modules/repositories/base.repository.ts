@@ -17,6 +17,10 @@ export class BaseRepository<T extends ObjectLiteral> {
         return this.repository.findOne({ where: { id } as any, ...options });
     }
 
+    async findOneBy(options?: FindOneOptions<T>): Promise<T | undefined> {
+        return this.repository.findOne({ ...options });
+    }
+
     async create(entity: DeepPartial<T>): Promise<T> {
         const newEntity = this.repository.create(entity);
         return this.repository.save(newEntity);

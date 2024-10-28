@@ -51,3 +51,12 @@ export const registerSchema = Joi.object({
       'any.required': 'Password is required',
     }),
   });
+
+  export const otpSchema = Joi.object({
+    email: Joi.string().email().required(),
+    otp: Joi.string().length(4).required(),
+  });
+
+  export const emailSchema = Joi.object({
+    email: Joi.string().email().required(),
+  });

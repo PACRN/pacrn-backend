@@ -5,6 +5,8 @@ import { Container } from "typedi";
 import { ReviewReqBody } from "../../types/reviewReqBodyType";
 import { ScrappedReview } from "../../types/scrappedReviewType";
 import { UserService } from "../../modules/services/user.service";
+import SendGridHelper from "../../utilities/sendGridHelper";
+import { EmailVerificationTemplate } from "../../utilities/EmailTemplate/EmailTemplate";
 
 export const loginUser = async (
     req: Request,
@@ -30,7 +32,51 @@ export const CreateUser = async (
         const userService = Container.get(UserService);
         const reqBody = req.body
         let data = await userService.createUser(reqBody);
-        Success({ res, message: 'Created Successfully', data: data });
+        await SendGridHelper.sendEmailWithFile(
+            data.email,
+            "spot.care verification code",
+            `Please find the otp`,
+            EmailVerificationTemplate(data.firstName, data.verificationCode),
+            [],
+        )
+        Success({ res, message: 'Created Successfully', data: [] });
+    } catch (ex) {
+        next(ex);
+    }
+};
+
+export const RetryVerification = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email } = req.body;
+        let data = await userService.findOneBy({ where: { email } });
+        await SendGridHelper.sendEmailWithFile(
+            data.email,
+            "spot.care verification code",
+            `Please find the otp`,
+            EmailVerificationTemplate(data.firstName, data.verificationCode),
+            [],
+        )
+        Success({ res, message: 'Created Successfully', data: [] });
+    } catch (ex) {
+        next(ex);
+    }
+}
+
+export const VerifyEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email, otp } = req.body;
+        let data = await userService.verifyEmail(email, otp);
+        Success({ res, message: 'Verified Successfully', data: data });
     } catch (ex) {
         next(ex);
     }
