@@ -3,6 +3,7 @@ import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
 import { Rating } from './ratings.entities';
 import { Reports } from './reports.entities';
+import { TotalReview } from './totalReview.entities';
 
 @Entity()
 export class Provider {
@@ -44,6 +45,9 @@ export class Provider {
   @Column('geography', { spatialFeatureType: 'Point', srid: 4326, nullable: true })
   location: string;
 
-  @Column({nullable: true, default: true})
+  @Column({ nullable: true, default: true })
   isActive: boolean;
+
+  @OneToOne(() => TotalReview, (totalReview) => totalReview.provider)
+  totalReview: TotalReview;
 }
