@@ -23,3 +23,54 @@ export const saveReportSchema = Joi.object({
     category: Joi.string().required(),
     desc: Joi.string().empty()
 })
+
+export const registerSchema = Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email must be a valid email address',
+      'any.required': 'Email is required',
+    }),
+    firstName: Joi.string().required().messages({
+      'any.required': 'First name is required',
+    }),
+    lastName: Joi.string().optional(),
+    phone: Joi.string().optional().pattern(/^\+?[1-9]\d{1,14}$/).messages({
+      'string.pattern.base': 'Phone number is invalid',
+    }),
+    password: Joi.string().min(6).required().messages({
+      'string.min': 'Password must be at least 6 characters long',
+      'any.required': 'Password is required',
+    }),
+  });
+
+  export const updateSchema = Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email must be a valid email address',
+      'any.required': 'Email is required',
+    }),
+    firstName: Joi.string().required().messages({
+      'any.required': 'First name is required',
+    }),
+    lastName: Joi.string().optional(),
+    phone: Joi.string().optional().pattern(/^\+?[1-9]\d{1,14}$/).messages({
+      'string.pattern.base': 'Phone number is invalid',
+    })
+  });
+  
+  export const loginSchema = Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email must be a valid email address',
+      'any.required': 'Email is required',
+    }),
+    password: Joi.string().required().messages({
+      'any.required': 'Password is required',
+    }),
+  });
+
+  export const otpSchema = Joi.object({
+    email: Joi.string().email().required(),
+    otp: Joi.string().length(4).required(),
+  });
+
+  export const emailSchema = Joi.object({
+    email: Joi.string().email().required(),
+  });

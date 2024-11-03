@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { SubSection } from './subSection.entities';
+import { Provider } from './providers.entities';
 @Entity()
 export class Section {
   @PrimaryGeneratedColumn('increment')
@@ -11,9 +12,13 @@ export class Section {
   @Column('text')
   sectionName: string;
 
-  @Column('text')
+  @Column()
   code: string;
 
   @OneToMany(() => SubSection, (subSection) => subSection.section)
   subSections: SubSection[];
+
+  @ManyToOne(() => Provider, provider => provider.section)
+  @JoinColumn({ name: 'code', referencedColumnName: 'code' }) // Correctly defines the foreign key column
+  provider: Provider;
 }

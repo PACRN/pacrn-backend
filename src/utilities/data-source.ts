@@ -21,7 +21,11 @@ import { ImageType } from '../modules/entities/imageType.entities';
 import { AddressType } from '../modules/entities/addressType.entities';
 import { Section } from '../modules/entities/section.entities';
 import { SubSection } from '../modules/entities/subSection.entities';
+<<<<<<< HEAD
 import { TotalReview } from '../modules/entities/totalReview.entities';
+=======
+import { User } from '../modules/entities/user.entities';
+>>>>>>> 1c21fd2f2a3907a6c952e1ed5ef79cae704f2863
 
 
 export const AppDataSource = new DataSource({
@@ -36,7 +40,11 @@ export const AppDataSource = new DataSource({
   entities: [Provider, CareType, Cares,
     Tenant, TenantConfigurations, Subscriptions,
     Location, Tags, Rating, Review, Reports, Customer,
+<<<<<<< HEAD
     Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview],
+=======
+    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, User],
+>>>>>>> 1c21fd2f2a3907a6c952e1ed5ef79cae704f2863
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

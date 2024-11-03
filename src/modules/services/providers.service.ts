@@ -159,6 +159,7 @@ export class ProvidersService extends BaseService<Provider> {
                 .leftJoinAndSelect('provider.rating', 'rating')
                 .leftJoinAndSelect('provider.totalReview', 'total_review')
                 .leftJoinAndSelect('total_review.review', 'review')
+                .leftJoinAndSelect('provider.section', 'section')
                 .where('provider.services LIKE :careType', { careType: `%${careType}%` })
                 .andWhere('provider."isActive" = True ')
                 .andWhere(`get_distance_from_lat_lon_km(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radiusInKm}`)
@@ -187,6 +188,7 @@ export class ProvidersService extends BaseService<Provider> {
                     'rating.shortStatyQuality',
                     'rating.moreinfo',
                     'rating.abusereport',
+                    'section.sectionName',
                     'total_review.id',
                     'total_review.totalRating',
                     'total_review.totalReviews',
