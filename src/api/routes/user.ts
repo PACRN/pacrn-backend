@@ -45,6 +45,21 @@ export const CreateUser = async (
     }
 };
 
+export const UpdateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const reqBody = req.body
+        let data = await userService.updateUser(reqBody);
+        Success({ res, message: 'Updated Successfully', data });
+    } catch (ex) {
+        next(ex);
+    }
+};
+
 export const RetryVerification = async (
     req: Request,
     res: Response,

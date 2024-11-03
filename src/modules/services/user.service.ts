@@ -5,6 +5,7 @@ import { UserRepository } from "../repositories/user.repository";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { omit } from '../../utilities/omitKeys';
 
 @Service()
 export class UserService extends BaseService<User> {
@@ -31,7 +32,8 @@ export class UserService extends BaseService<User> {
         if (!isPasswordValid) throw new Error('Invalid email or password');
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
-        return { token };
+
+        return { ...omit(user, ['id', 'password', 'isVerified', 'verificationCode']), token };
     }
 
     public async verifyEmail(email: string, otp: string) {
@@ -46,6 +48,15 @@ export class UserService extends BaseService<User> {
         await this.repository.update(user.id, user);
 
         return { message: 'User verified successfully' };
+    }
+
+    public async updateUser(user: User) {
+        const existingUser = await this.repository.findOneBy({ where: { email: user.email } });
+        if (existingUser) {
+            await this.repository.update(existingUser.id, user);
+            return { message: 'User updated successfully' };
+        }
+        throw new Error('No user found');
     }
 
 
