@@ -3,7 +3,10 @@ import { Fail, Success } from "../../utilities/response-parser";
 import { ReviewService } from "../../modules/services/review.service";
 import { Container } from "typedi";
 import { ReviewReqBody } from "../../types/reviewReqBodyType";
-import { ScrappedReview } from "../../types/scrappedReviewType";
+import axios from "axios";
+import Place from "../../types/googleApiPlaceIDBody";
+import ReviewScrape from "../../utilities/scrapping/reviewscrapper";
+import { TotalReviewType } from "../../types/totalReviewType";
 
 export const GetAllReviews = async (
     req: Request,
@@ -13,11 +16,6 @@ export const GetAllReviews = async (
     try {
         const reviewService = Container.get(ReviewService);
         let data = await reviewService.GetReviews();
-        console.log("The data is: ", data), Success({
-            res,
-            message: "Fetched Successfully",
-            data: data
-        });
         Success({ res, message: 'Fetched Successfully', data: data });
     } catch (ex) {
         next(ex);
@@ -30,26 +28,20 @@ export const CreateReviews = async (
     next: NextFunction
 ) => {
     try {
-        const reviewService = Container.get(ReviewService);
-        const reqBody = req.body
-        const scrappedData = [
-            {
-                userName: "Delay Lowry",
-                review: "I like the layout of the place",
-                rating: 3,
-                scrappedId: 1,
-                source: "Google"
-            },
-            {
-                userName: "John Doe",
-                review: "Great service and friendly staff",
-                rating: 5,
-                scrappedId: 2,
-                source: "Google"
-            }
-        ];
-        let data = await reviewService.CreateReviews(req.body)
-        Success({ res, message: 'Created Successfully', data: data });
+        let requestBody: ReviewReqBody = req.body
+        const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${requestBody.place}&key=${process.env.GOOGLEAPI}`
+        try {
+            const response = await axios.get(url)
+            const responseData: Place = response.data
+            const googleMapUrl = `https://www.google.com/maps/place/?q=place_id:${responseData.results[0].place_id}`
+            const scrappedData: any = await ReviewScrape(googleMapUrl)
+            const reviewService = Container.get(ReviewService);
+            let totalReviewResult = await reviewService.CreateTotalReviews(scrappedData.totalData[0], requestBody.providerCode)
+            let reviewResult = await reviewService.CreateReviews(scrappedData.reviews, totalReviewResult.id)
+            Success({ res, message: "Reviews", data: reviewResult })
+        } catch (ex) {
+            next(ex);
+        }
     } catch (ex) {
         next(ex);
     }

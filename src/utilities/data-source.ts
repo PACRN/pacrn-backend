@@ -21,6 +21,7 @@ import { ImageType } from '../modules/entities/imageType.entities';
 import { AddressType } from '../modules/entities/addressType.entities';
 import { Section } from '../modules/entities/section.entities';
 import { SubSection } from '../modules/entities/subSection.entities';
+import { TotalReview } from '../modules/entities/totalReview.entities';
 import { User } from '../modules/entities/user.entities';
 
 
@@ -33,10 +34,10 @@ export const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Provider, CareType, Cares, 
+  entities: [Provider, CareType, Cares,
     Tenant, TenantConfigurations, Subscriptions,
     Location, Tags, Rating, Review, Reports, Customer,
-    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, User],
+    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview, User],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

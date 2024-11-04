@@ -1,4 +1,4 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
 import express from 'express';
 import config from 'config';
 import { AppDataSource } from './utilities/data-source';
@@ -9,6 +9,8 @@ import { handleGlobalErrors, healthCheck, useAzureStorage, useCors, useLogger, u
 import 'reflect-metadata';
 import Container from 'typedi';
 import { DataSource } from 'typeorm';
+
+dotenv.config();
 
 AppDataSource.initialize().then(async () => {
   // VALIDATE ENV
@@ -37,7 +39,7 @@ AppDataSource.initialize().then(async () => {
   await useMailer();
 
   const port = config.get<number>('port');
-  
+
   app.listen(port);
 
   console.log(`Server started with pid: ${process.pid} on port: ${port}`);

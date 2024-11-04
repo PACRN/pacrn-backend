@@ -1,4 +1,4 @@
 export interface ReviewReqBody {
     place: string,
-    providerId: number
+    providerCode: string
 }
