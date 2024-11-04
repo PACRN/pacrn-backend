@@ -59,5 +59,10 @@ export class UserService extends BaseService<User> {
         throw new Error('No user found');
     }
 
+    public async getUserByEmail(email: string) {
+        const user = await this.repository.findOneBy({ where: { email } });
+        if (!user) throw new Error('User not found');
+        return { ...omit(user, ['id', 'password', 'isVerified', 'verificationCode']) };
+    }
 
 }
