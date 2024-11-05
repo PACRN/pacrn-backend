@@ -3,7 +3,6 @@ import { Fail, Success } from "../../utilities/response-parser";
 import { ReviewService } from "../../modules/services/review.service";
 import { Container } from "typedi";
 import { ReviewReqBody } from "../../types/reviewReqBodyType";
-import { ScrappedReview } from "../../types/scrappedReviewType";
 import { UserService } from "../../modules/services/user.service";
 import SendGridHelper from "../../utilities/sendGridHelper";
 import { EmailVerificationTemplate } from "../../utilities/EmailTemplate/EmailTemplate";
