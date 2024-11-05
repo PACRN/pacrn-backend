@@ -195,7 +195,9 @@ export class ProvidersService extends BaseService<Provider> {
                     'review.review',
                     'review.source',
                     'review.rating',
-                    'review.reviewPeriod'
+                    'review.reviewPeriod',
+                    'review.username',
+                    'review.userThumbnail'
                 ])
                 .addSelect(`get_distance_from_lat_lon_km(:refLat, :refLon, locations.latitude, locations.longitude)`, 'distance')
                 .setParameter('refLat', currentLocation.lat)

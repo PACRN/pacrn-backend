@@ -43,8 +43,20 @@ const scrollPage = async (page: any, scrollContainer: string) => {
 }
 
 const getReviewsFromPage = async (Page: any) => {
-    const pageData = await Page.evaluate(() => {
+    const pageData = await Page.evaluate(async () => {
         // Get the total reviews and rating
+        const clickMoreButtons = async () => {
+            const moreButtons = Array.from(document.querySelectorAll('.w8nwRe.kyuRq'));
+            for (let button of moreButtons) {
+                if (button instanceof HTMLElement && button.getAttribute('aria-expanded') === 'false') {
+                    button.click();
+                    await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for content to load
+                }
+            }
+        };
+
+        await clickMoreButtons();
+
         const totalData = Array.from(document.querySelectorAll(".PPCwl")).map((el: HTMLElement) => {
             const starRatings = Array.from(el.querySelectorAll('.BHOKXe')).reduce((acc: any, e) => {
                 const ratingText = e.getAttribute('aria-label');
@@ -78,7 +90,6 @@ const getReviewsFromPage = async (Page: any) => {
         });
 
         return { totalData, reviews };
-        return reviews;
     });
     return pageData
 }
