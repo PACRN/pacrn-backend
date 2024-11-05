@@ -95,3 +95,18 @@ export const VerifyEmail = async (
         next(ex);
     }
 };
+
+export const GetUserByEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email } = req.query;
+        let data = await userService.getUserByEmail(email.toString());
+        Success({ res, message: 'Verified Successfully', data: data });
+    } catch (ex) {
+        next(ex);
+    }
+};
