@@ -53,8 +53,8 @@ export class UserService extends BaseService<User> {
     public async updateUser(user: User) {
         const existingUser = await this.repository.findOneBy({ where: { email: user.email } });
         if (existingUser) {
-            await this.repository.update(existingUser.id, user);
-            return { message: 'User updated successfully' };
+            let result = await this.repository.update(existingUser.id, user);
+            return result;
         }
         throw new Error('No user found');
     }

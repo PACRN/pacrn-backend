@@ -6,6 +6,10 @@ import { ReviewReqBody } from "../../types/reviewReqBodyType";
 import { UserService } from "../../modules/services/user.service";
 import SendGridHelper from "../../utilities/sendGridHelper";
 import { EmailVerificationTemplate } from "../../utilities/EmailTemplate/EmailTemplate";
+import AzureBlobStorageHelper from "../../utilities/azureBlobStorageHelper";
+import { CONSTANTS } from "../../utilities/constants";
+import { User } from "../../modules/entities/user.entities";
+import { omit } from "../../utilities/omitKeys";
 
 export const loginUser = async (
     req: Request,
@@ -110,3 +114,34 @@ export const GetUserByEmail = async (
         next(ex);
     }
 };
+
+export const UpdateProfile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email, firstName, lastName, phone } = req.body;
+        let profileUrl = null;
+        if (req.file) {
+            const filePath = req.file.path;
+            const filename = req.file.filename;
+    
+            const azureResult = await AzureBlobStorageHelper.uploadFile(CONSTANTS.AZURE.CONTAINERS.IMAGES, CONSTANTS.AZURE.FOLDERS.PROFILE_FOLDER + "/" + filename, filePath)
+            profileUrl = azureResult._response.request.url.split("?")[0];
+        }       
+
+        let user: User = {
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            phone: phone,
+            profilePicture: profileUrl
+        }
+
+        const data = await userService.updateUser(user);
+
+
+        Success({ res, message: 'Emailed Successfully', data: omit(data, ['hashPassword', 'hashPassword', 'isVerified', 'password', 'verificationCode']) });
+
+    } catch (error) {
+        next(error)
+    }
+}

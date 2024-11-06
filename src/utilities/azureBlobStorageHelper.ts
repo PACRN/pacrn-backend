@@ -1,4 +1,4 @@
-import { BlobServiceClient, ContainerClient, BlockBlobClient } from '@azure/storage-blob';
+import { BlobServiceClient, ContainerClient, BlockBlobClient, BlobUploadCommonResponse } from '@azure/storage-blob';
 import fs from 'fs';
 
 class AzureBlobStorageHelper {
@@ -25,7 +25,7 @@ class AzureBlobStorageHelper {
      * @param blobName The name of the blob (file) in Azure Blob Storage
      * @param filePath The local path of the file to upload
      */
-    static async uploadFile(containerName: string, blobName: string, filePath: string): Promise<void> {
+    static async uploadFile(containerName: string, blobName: string, filePath: string): Promise<BlobUploadCommonResponse> {
         const containerClient: ContainerClient = this.blobServiceClient.getContainerClient(containerName);
         await containerClient.createIfNotExists(); // Create container if it doesn't exist
 
@@ -34,9 +34,10 @@ class AzureBlobStorageHelper {
         const fileStream = fs.createReadStream(filePath);
         const fileStat = fs.statSync(filePath);
 
-        // Upload the file stream using BlockBlobClient
-        await blockBlobClient.uploadStream(fileStream, fileStat.size);
         console.log(`File uploaded to Azure Blob Storage: ${blobName}`);
+
+        // Upload the file stream using BlockBlobClient
+        return await blockBlobClient.uploadStream(fileStream, fileStat.size);
     }
 
     /**
