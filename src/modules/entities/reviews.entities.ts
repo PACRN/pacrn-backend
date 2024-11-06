@@ -14,7 +14,10 @@ export class Review {
   rating: number;
   @Column({ type: 'text' })
   reviewPeriod: string;
-
+  @Column({ type: 'text' })
+  username: string;
+  @Column({ type: 'text' })
+  userThumbnail: string;
   @Column({ type: 'varchar', nullable: true })
   review: string;
   @Column({ type: 'number' })

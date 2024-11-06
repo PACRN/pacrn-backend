@@ -55,6 +55,8 @@ export class ReviewService extends BaseService<Review> {
                 newReview.source = 'googleMap';
                 newReview.reviewPeriod = e.date;
                 newReview.TotalReviewId = totalReviewId;
+                newReview.username = e.username;
+                newReview.userThumbnail = e.userthumbnail;
                 return newReview;
             });
             let data = await this.reviewRepository.createAll(reviewList)
