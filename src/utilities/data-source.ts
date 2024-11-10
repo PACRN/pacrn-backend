@@ -23,6 +23,7 @@ import { Section } from '../modules/entities/section.entities';
 import { SubSection } from '../modules/entities/subSection.entities';
 import { TotalReview } from '../modules/entities/totalReview.entities';
 import { User } from '../modules/entities/user.entities';
+import { Contact } from '../modules/entities/contact.entities';
 
 
 export const AppDataSource = new DataSource({
@@ -37,7 +38,7 @@ export const AppDataSource = new DataSource({
   entities: [Provider, CareType, Cares,
     Tenant, TenantConfigurations, Subscriptions,
     Location, Tags, Rating, Review, Reports, Customer,
-    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview, User],
+    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview, User, Contact],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

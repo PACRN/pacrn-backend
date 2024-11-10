@@ -6,11 +6,12 @@ import upload from 'multer';
 import { EmailSavedProvider, FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider, GetQnAForProvider, SaveReport } from './routes/provider';
 import { AddCareType, CreateCare, DeleteCare, GetCares, UpdateCare } from './routes/care';
 import { bodyValidator, paramValidator, queryValidator } from '../utilities/validator';
-import { createCareSchema, emailSchema, idSchema, loginSchema, NearestProviderSchema, otpSchema, registerSchema, saveReportSchema, updateSchema } from './validators';
+import { contactSchema, createCareSchema, emailSchema, idSchema, loginSchema, NearestProviderSchema, otpSchema, registerSchema, saveReportSchema, updateSchema } from './validators';
 import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
 import { CreateUser, GetUserByEmail, loginUser, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
+import { CreateContactMessages } from './routes/contacts';
 
 export async function useUploadDir() {
   const uploadDir = path.join(__dirname, "files");
@@ -62,6 +63,8 @@ export default async (app: any) => {
   app.post('/api/user/verify', bodyValidator(otpSchema), VerifyEmail);
   app.post('/api/user/retryVerification', bodyValidator(emailSchema), RetryVerification);
   app.get('/api/user/getUserByEmail', queryValidator(emailSchema), GetUserByEmail);
-  app.get('/api/logout', deserializeUser, requireUser, logoutHandler); 
+  app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
+
+  app.post('/api/createContact', bodyValidator(contactSchema), CreateContactMessages)
 
 }
