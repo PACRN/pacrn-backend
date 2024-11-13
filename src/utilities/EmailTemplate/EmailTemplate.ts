@@ -1,238 +1,568 @@
 export const savedProviderTemplate = (recipientName: string) => {
-    const htmlTemplate = `
+  const htmlTemplate = `
         <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Spot.care</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f7f7f7;
-                }
-                .container {
-                    width: 100%;
-                    max-width: 600px;
-                    margin: auto;
-                    background-color: #ffffff;
-                    border: 1px solid #dddddd;
-                    border-radius: 5px;
-                    overflow: hidden;
-                }
-                .header {
-                    background-color: #4CAF50;
-                    color: white;
-                    padding: 20px;
-                    text-align: center;
-                }
-                .content {
-                    padding: 20px;
-                }
-                .footer {
-                    background-color: #f1f1f1;
-                    text-align: center;
-                    padding: 10px;
-                    font-size: 12px;
-                    color: #666;
-                }
-                a {
-                    color: #4CAF50;
-                    text-decoration: none;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>Welcome to Our Service!</h1>
-                </div>
-                <div class="content">
-                    <h2>Hello ${recipientName},</h2>
-                    <p>Thank you for using our service. We are excited to serve you!</p>
-                    <p>please find the pdf file attached</p>
-                    
-                    <p>If you have any questions, feel free to reach out to our support team.</p>
-                    <p>Best Regards,<br>Spot.care</p>
-                </div>
-                <div class="footer">
-                    <p>&copy; 2024 Our Company. All rights reserved.</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        `;
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
-    return htmlTemplate;
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]--><!--[if !mso]><!--><!--<![endif]-->
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		a[x-apple-data-detectors] {
+			color: inherit !important;
+			text-decoration: inherit !important;
+		}
+
+		#MessageViewBody a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		p {
+			line-height: inherit
+		}
+
+		.desktop_hide,
+		.desktop_hide table {
+			mso-hide: all;
+			display: none;
+			max-height: 0px;
+			overflow: hidden;
+		}
+
+		.image_block img+div {
+			display: none;
+		}
+
+		sup,
+		sub {
+			font-size: 75%;
+			line-height: 0;
+		}
+
+		@media (max-width:620px) {
+			.desktop_hide table.icons-inner {
+				display: inline-block !important;
+			}
+
+			.icons-inner {
+				text-align: center;
+			}
+
+			.icons-inner td {
+				margin: 0 auto;
+			}
+
+			.mobile_hide {
+				display: none;
+			}
+
+			.row-content {
+				width: 100% !important;
+			}
+
+			.stack .column {
+				width: 100%;
+				display: block;
+			}
+
+			.mobile_hide {
+				min-height: 0;
+				max-height: 0;
+				max-width: 0;
+				overflow: hidden;
+				font-size: 0px;
+			}
+
+			.desktop_hide,
+			.desktop_hide table {
+				display: table !important;
+				max-height: none !important;
+			}
+
+			.row-1 .column-1 {
+				padding: 30px 20px 20px !important;
+			}
+		}
+	</style>
+	<!--[if mso ]><style>sup, sub { font-size: 100% !important; } sup { mso-text-raise:10% } sub { mso-text-raise:-10% }</style> <![endif]-->
+</head>
+
+<body class="body"
+	style="margin: 0; background-color: #ffffff; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+	<div style="display: none; max-height: 0px; overflow: hidden;">
+		 Thank you for using Spot Care! Attached is a file containing your selected providers. We hope this simplifies
+		your journey to finding the right care.
+		&#847; &zwnj; &nbsp;&#847; &zwnj;&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847;
+		&zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj;
+		&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;&#847; &zwnj;&nbsp; &#847; &zwnj; &nbsp;
+		&#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847;
+		&zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj;
+		&nbsp;&#847; &zwnj;&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
+		&#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847;
+		&zwnj; &nbsp; &#847; &zwnj; &nbsp; </div>
+	<table class="nl-container" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
+		style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;">
+		<tbody>
+			<tr>
+				<td>
+					<table class="row row-1" align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
+						role="presentation"
+						style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f7fc;">
+						<tbody>
+							<tr>
+								<td>
+									<table class="row-content stack" align="center" border="0" cellpadding="0"
+										cellspacing="0" role="presentation"
+										style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; border-radius: 0; color: #000000; width: 600px; margin: 0 auto;"
+										width="600">
+										<tbody>
+											<tr>
+												<td class="column column-1" width="100%"
+													style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; padding-top: 15px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
+													<table class="image_block block-1" width="100%" border="0"
+														cellpadding="0" cellspacing="0" role="presentation"
+														style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="pad"
+																style="width:100%;padding-right:0px;padding-left:0px;">
+																<div class="alignment" align="center"
+																	style="line-height:10px">
+																	<div style="max-width: 168px;"><img
+																			src="https://7a59f80f83.imgdist.com/pub/bfra/agyhij36/3x8/hss/bu2/Spot_Care_logo.png"
+																			style="display: block; height: auto; border: 0; width: 100%;"
+																			width="168" alt="Spot Care" title
+																			height="auto"></div>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<table class="divider_block block-2" width="100%" border="0"
+														cellpadding="10" cellspacing="0" role="presentation"
+														style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="pad">
+																<div class="alignment" align="center">
+																	<table border="0" cellpadding="0" cellspacing="0"
+																		role="presentation" width="100%"
+																		style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																		<tr>
+																			<td class="divider_inner"
+																				style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;">
+																				<span
+																					style="word-break: break-word;">&#8202;</span>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<table class="paragraph_block block-3" width="100%" border="0"
+														cellpadding="20" cellspacing="0" role="presentation"
+														style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+														<tr>
+															<td class="pad">
+																<div
+																	style="color:#000000;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+																	<p style="margin: 0;">Hi ${recipientName},<br><br>Thank you
+																		for using Spot.care to find and connect with the
+																		providers you need. We’re here to make the
+																		process of locating the right care as easy and
+																		efficient as possible.<br><br>Based on your
+																		recent search, we’ve compiled your selected
+																		providers into a convenient PDF file attached to
+																		this email. This list includes all the necessary
+																		contact information and details for each
+																		provider, allowing you to reach out and
+																		coordinate directly.<br><br></p>
+																	<strong>What’s included in the attached
+																		file:</strong>
+
+																	<ul
+																		style="margin-top: 0; margin-bottom: 0; list-style-type: revert;">
+																		<li style="Margin: 0 0 0 0;">Provider names and
+																			specialties</li>
+																		<li style="Margin: 0 0 0 0;">Contact information
+																			(phone, email, address, ratings)</li>
+																		<li style="Margin: 0 0 0 0;">Additional details
+																			to help you make informed decisions</li>
+
+																	</ul>
+
+
+																	<p style="margin: 0;"><br>
+																		We hope this helps streamline your care
+																		journey.&nbsp;<br><br>Thank you!<br>Spot
+																		Care<br><br><em>Attachment: Your selected
+																			providers from Spot.care</em></p>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<table class="divider_block block-4" width="100%" border="0"
+														cellpadding="10" cellspacing="0" role="presentation"
+														style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="pad">
+																<div class="alignment" align="center">
+																	<table border="0" cellpadding="0" cellspacing="0"
+																		role="presentation" width="100%"
+																		style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																		<tr>
+																			<td class="divider_inner"
+																				style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;">
+																				<span
+																					style="word-break: break-word;">&#8202;</span>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<table class="paragraph_block block-5" width="100%" border="0"
+														cellpadding="10" cellspacing="0" role="presentation"
+														style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+														<tr>
+															<td class="pad">
+																<div
+																	style="color:#94929d;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:center;mso-line-height-alt:18px;">
+																	<p style="margin: 0;">1 Concourse Pkwy, Atlanta, GA
+																		30328 | 1888-122-3233 | support@spot.care<br>©
+																		Spot.care. All Rights Reserved.</p>
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</td>
+			</tr>
+		</tbody>
+	</table><!-- End -->
+</body>
+
+</html>`;
+
+  return htmlTemplate;
 }
 
 export const EmailVerificationTemplate = (firstName: string, otp: string) => {
-    const htmlTemplate = `
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta name="x-apple-disable-message-reformatting">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta content="telephone=no" name="format-detection">
-  <title>New Message</title>
-  <!--[if (mso 16)]>
-    <style type="text/css">
-    a {text-decoration: none;}
-    </style>
-    <![endif]-->
-  <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
-  <!--[if gte mso 9]>
-<noscript>
-         <xml>
-           <o:OfficeDocumentSettings>
-           <o:AllowPNG></o:AllowPNG>
-           <o:PixelsPerInch>96</o:PixelsPerInch>
-           </o:OfficeDocumentSettings>
-         </xml>
-      </noscript>
-<![endif]-->
-  <style type="text/css">
-.rollover:hover .rollover-first {
-  max-height:0px!important;
-  display:none!important;
-}
-.rollover:hover .rollover-second {
-  max-height:none!important;
-  display:block!important;
-}
-.rollover span {
-  font-size:0px;
-}
-u + .body img ~ div div {
-  display:none;
-}
-#outlook a {
-  padding:0;
-}
-span.MsoHyperlink,
-span.MsoHyperlinkFollowed {
-  color:inherit;
-  mso-style-priority:99;
-}
-a.es-button {
-  mso-style-priority:100!important;
-  text-decoration:none!important;
-}
-a[x-apple-data-detectors],
-#MessageViewBody a {
-  color:inherit!important;
-  text-decoration:none!important;
-  font-size:inherit!important;
-  font-family:inherit!important;
-  font-weight:inherit!important;
-  line-height:inherit!important;
-}
-.es-desk-hidden {
-  display:none;
-  float:left;
-  overflow:hidden;
-  width:0;
-  max-height:0;
-  line-height:0;
-  mso-hide:all;
-}
-@media only screen and (max-width:600px) {.es-p-default { } *[class="gmail-fix"] { display:none!important } p, a { line-height:150%!important } h1, h1 a { line-height:120%!important } h2, h2 a { line-height:120%!important } h3, h3 a { line-height:120%!important } h4, h4 a { line-height:120%!important } h5, h5 a { line-height:120%!important } h6, h6 a { line-height:120%!important } .es-header-body p { } .es-content-body p { } .es-footer-body p { } .es-infoblock p { } h1 { font-size:36px!important; text-align:left } h2 { font-size:26px!important; text-align:left } h3 { font-size:20px!important; text-align:left } h4 { font-size:24px!important; text-align:left } h5 { font-size:20px!important; text-align:left } h6 { font-size:16px!important; text-align:left } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:36px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px!important } .es-header-body h4 a, .es-content-body h4 a, .es-footer-body h4 a { font-size:24px!important } .es-header-body h5 a, .es-content-body h5 a, .es-footer-body h5 a { font-size:20px!important } .es-header-body h6 a, .es-content-body h6 a, .es-footer-body h6 a { font-size:16px!important } .es-menu td a { font-size:12px!important } .es-header-body p, .es-header-body a { font-size:14px!important } .es-content-body p, .es-content-body a { font-size:14px!important } .es-footer-body p, .es-footer-body a { font-size:14px!important } .es-infoblock p, .es-infoblock a { font-size:12px!important } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3, .es-m-txt-c h4, .es-m-txt-c h5, .es-m-txt-c h6 { text-align:center!important } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3, .es-m-txt-r h4, .es-m-txt-r h5, .es-m-txt-r h6 { text-align:right!important } .es-m-txt-j, .es-m-txt-j h1, .es-m-txt-j h2, .es-m-txt-j h3, .es-m-txt-j h4, .es-m-txt-j h5, .es-m-txt-j h6 { text-align:justify!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3, .es-m-txt-l h4, .es-m-txt-l h5, .es-m-txt-l h6 { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline!important } .es-m-txt-r .rollover:hover .rollover-second, .es-m-txt-c .rollover:hover .rollover-second, .es-m-txt-l .rollover:hover .rollover-second { display:inline!important } .es-m-txt-r .rollover span, .es-m-txt-c .rollover span, .es-m-txt-l .rollover span { line-height:0!important; font-size:0!important; display:block } .es-spacer { display:inline-table } a.es-button, button.es-button { font-size:20px!important; padding:10px 20px 10px 20px!important; line-height:120%!important } a.es-button, button.es-button, .es-button-border { display:inline-block!important } .es-m-fw, .es-m-fw.es-fw, .es-m-fw .es-button { display:block!important } .es-m-il, .es-m-il .es-button, .es-social, .es-social td, .es-menu { display:inline-block!important } .es-adaptive table, .es-left, .es-right { width:100%!important } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%!important; max-width:600px!important } .adapt-img { width:100%!important; height:auto!important } .es-mobile-hidden, .es-hidden { display:none!important } .es-desk-hidden { width:auto!important; overflow:visible!important; float:none!important; max-height:inherit!important; line-height:inherit!important } tr.es-desk-hidden { display:table-row!important } table.es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display:table-cell!important } .es-menu td { width:1%!important } table.es-table-not-adapt, .esd-block-html table { width:auto!important } .h-auto { height:auto!important } }
-@media screen and (max-width:384px) {.mail-message-content { width:414px!important } }
-</style>
- </head>
- <body class="body" style="width:100%;height:100%;padding:0;Margin:0">
-  <div dir="ltr" class="es-wrapper-color" lang="en" style="background-color:#FAFAFA">
-   <!--[if gte mso 9]>
-			<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
-				<v:fill type="tile" color="#fafafa"></v:fill>
-			</v:background>
-		<![endif]-->
-   <table width="100%" cellspacing="0" cellpadding="0" class="es-wrapper" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#FAFAFA">
-    <tbody>
-     <tr>
-      <td valign="top" style="padding:0;Margin:0">
-       <table cellpadding="0" cellspacing="0" align="center" class="es-content" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed !important">
-        <tbody>
-         <tr>
-          <td align="center" style="padding:0;Margin:0">
-           <table bgcolor="#ffffff" align="center" cellpadding="0" cellspacing="0" class="es-content-body" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px">
-            <tbody>
-             <tr>
-              <td align="left" style="Margin:0;padding-top:20px;padding-right:20px;padding-bottom:10px;padding-left:20px">
-               <table cellpadding="0" cellspacing="0" width="100%" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                <tbody>
-                 <tr>
-                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                   <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                    <tbody>
-                     <tr>
-                      <td align="center" style="padding:0;Margin:0;font-size:0"><img src="https://eprykub.stripocdn.email/content/guids/CABINET_2b648d3d76fc1e197aa110d340f1081f81e1c558da015c0670ccb61b98de2965/images/spot_care_logo_dTW.png" alt="" width="560" class="adapt-img" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></td>
-                     </tr>
-                     <tr>
-                      <td align="center" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">Thank you for started using spot.care&nbsp;</p></td>
-                     </tr>
-                    </tbody>
-                   </table></td>
-                 </tr>
-                </tbody>
-               </table></td>
-             </tr>
-             <tr>
-              <td align="left" style="Margin:0;padding-right:20px;padding-bottom:10px;padding-left:20px;padding-top:10px">
-               <table cellpadding="0" cellspacing="0" width="100%" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                <tbody>
-                 <tr>
-                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:5px;border:2px dashed #cccccc" role="presentation">
-                    <tbody>
-                     <tr>
-                      <td align="center" style="padding:0;Margin:0;padding-top:20px;padding-right:20px;padding-left:20px"><h2 class="es-m-txt-c" style="Margin:0;font-family:arial, 'helvetica neue', helvetica, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:26px;font-style:normal;font-weight:bold;line-height:31.2px;color:#333333">Hi ${firstName}, Your Verification code</h2></td>
-                     </tr>
-                     <tr>
-                      <td align="center" style="Margin:0;padding-right:20px;padding-left:20px;padding-top:10px;padding-bottom:20px"><h1 class="es-m-txt-c" style="Margin:0;font-family:arial, 'helvetica neue', helvetica, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:46px;font-style:normal;font-weight:bold;line-height:55.2px;color:#333333"><strong><a target="_blank" style="mso-line-height-rule:exactly;text-decoration:none;color:#5C68E2;font-size:46px" href="">${otp}</a></strong></h1></td>
-                     </tr>
-                    </tbody>
-                   </table></td>
-                 </tr>
-                </tbody>
-               </table></td>
-             </tr>
-             <tr>
-              <td align="left" style="padding:0;Margin:0;padding-right:20px;padding-bottom:10px;padding-left:20px">
-               <table cellpadding="0" cellspacing="0" width="100%" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                <tbody>
-                 <tr>
-                  <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:5px" role="presentation">
-                    <tbody>
-                     <tr>
-                      <td align="center" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">For Further details</p></td>
-                     </tr>
-                     <tr>
-                      <td align="center" style="padding:0;Margin:0;padding-bottom:10px;padding-top:10px"><span class="es-button-border" style="border-style:solid;border-color:#2CB543;background:#5C68E2;border-width:0px;display:inline-block;border-radius:6px;width:auto"><a href="https://spot.care" target="_blank" class="es-button" style="mso-style-priority:100 !important;text-decoration:none !important;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;padding:10px 30px 10px 30px;display:inline-block;background:#5C68E2;border-radius:6px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;letter-spacing:0;mso-padding-alt:0;mso-border-alt:10px solid #5C68E2;border-left-width:30px;border-right-width:30px">Visit Spot.care</a></span></td>
-                     </tr>
-                    </tbody>
-                   </table></td>
-                 </tr>
-                </tbody>
-               </table></td>
-             </tr>
-            </tbody>
-           </table></td>
-         </tr>
-        </tbody>
-       </table></td>
-     </tr>
-    </tbody>
-   </table>
-  </div>
- </body>
-</html>
-        `;
+  const htmlTemplate = `
+        <!DOCTYPE html>
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
-    return htmlTemplate;
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]--><!--[if !mso]><!--><!--<![endif]-->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    a[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: inherit !important;
+    }
+
+    #MessageViewBody a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    p {
+      line-height: inherit
+    }
+
+    .desktop_hide,
+    .desktop_hide table {
+      mso-hide: all;
+      display: none;
+      max-height: 0px;
+      overflow: hidden;
+    }
+
+    .image_block img+div {
+      display: none;
+    }
+
+    sup,
+    sub {
+      font-size: 75%;
+      line-height: 0;
+    }
+
+    @media (max-width:620px) {
+      .desktop_hide table.icons-inner {
+        display: inline-block !important;
+      }
+
+      .icons-inner {
+        text-align: center;
+      }
+
+      .icons-inner td {
+        margin: 0 auto;
+      }
+
+      .mobile_hide {
+        display: none;
+      }
+
+      .row-content {
+        width: 100% !important;
+      }
+
+      .stack .column {
+        width: 100%;
+        display: block;
+      }
+
+      .mobile_hide {
+        min-height: 0;
+        max-height: 0;
+        max-width: 0;
+        overflow: hidden;
+        font-size: 0px;
+      }
+
+      .desktop_hide,
+      .desktop_hide table {
+        display: table !important;
+        max-height: none !important;
+      }
+
+      .row-1 .column-1 .block-3.heading_block h1 {
+        font-size: 30px !important;
+      }
+
+      .row-1 .column-1 {
+        padding: 30px 20px 20px !important;
+      }
+    }
+  </style>
+  <!--[if mso ]><style>sup, sub { font-size: 100% !important; } sup { mso-text-raise:10% } sub { mso-text-raise:-10% }</style> <![endif]-->
+</head>
+
+<body class="body"
+  style="margin: 0; background-color: #ffffff; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+  <div style="display: none; max-height: 0px; overflow: hidden;">
+     Please verify your email address to complete the account setup. The verification code expires is 1 hour.
+    &#847; &zwnj; &nbsp;&#847; &zwnj;&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj;
+    &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
+    &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;&#847; &zwnj;&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj;
+    &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
+    &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;&#847;
+    &zwnj;&nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj;
+    &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp; &#847; &zwnj; &nbsp;
+    &#847; &zwnj; &nbsp; </div>
+  <table class="nl-container" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
+    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;">
+    <tbody>
+      <tr>
+        <td>
+          <table class="row row-1" align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
+            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f7fc;">
+            <tbody>
+              <tr>
+                <td>
+                  <table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0"
+                    role="presentation"
+                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; border-radius: 0; color: #000000; width: 600px; margin: 0 auto;"
+                    width="600">
+                    <tbody>
+                      <tr>
+                        <td class="column column-1" width="100%"
+                          style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 10px; padding-left: 10px; padding-right: 10px; padding-top: 10px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
+                          <table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0"
+                            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <tr>
+                              <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+                                <div class="alignment" align="center" style="line-height:10px">
+                                  <div style="max-width: 174px;"><img
+                                      src="https://7a59f80f83.imgdist.com/pub/bfra/agyhij36/3x8/hss/bu2/Spot_Care_logo.png"
+                                      style="display: block; height: auto; border: 0; width: 100%;" width="174"
+                                      alt="Spot Care" title height="auto"></div>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="divider_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0"
+                            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <tr>
+                              <td class="pad">
+                                <div class="alignment" align="center">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"
+                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                    <tr>
+                                      <td class="divider_inner"
+                                        style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;"><span
+                                          style="word-break: break-word;">&#8202;</span></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="heading_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0"
+                            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <tr>
+                              <td class="pad"
+                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;text-align:center;width:100%;">
+                                <h1
+                                  style="margin: 0; color: #232f3f; direction: ltr; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 28px; font-weight: 700; letter-spacing: 1px; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 33.6px;">
+                                  <span class="tinyMce-placeholder" style="word-break: break-word;">Verify your
+                                    email</span></h1>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="paragraph_block block-4" width="100%" border="0" cellpadding="10"
+                            cellspacing="0" role="presentation"
+                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                            <tr>
+                              <td class="pad">
+                                <div
+                                  style="color:#000000;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
+                                  <p style="margin: 0;">Hi ${firstName},</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="paragraph_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0"
+                            role="presentation"
+                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                            <tr>
+                              <td class="pad"
+                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;">
+                                <div
+                                  style="color:#000000;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
+                                  <p style="margin: 0; margin-bottom: 16px;">Welcome to Spot.care!</p>
+                                  <p style="margin: 0;">To complete your account setup, please enter the following code:
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="heading_block block-6" width="100%" border="0" cellpadding="10" cellspacing="0"
+                            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <tr>
+                              <td class="pad">
+                                <h2
+                                  style="margin: 0; color: #444a5b; direction: ltr; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 32px; font-weight: 400; letter-spacing: 1px; line-height: 150%; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 48px;">
+                                  <span class="tinyMce-placeholder" style="word-break: break-word;"><span
+                                      style="word-break: break-word; color: #850dfc;"><strong>${otp}</strong></span></span>
+                                </h2>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="paragraph_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0"
+                            role="presentation"
+                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                            <tr>
+                              <td class="pad"
+                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;">
+                                <div
+                                  style="color:#000000;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
+                                  <p style="margin: 0; margin-bottom: 16px;">For security, this code will expire in 1
+                                    hour.</p>
+                                  <p style="margin: 0;">If you didn’t request this email, please let us know at
+                                    support@spot.care.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="paragraph_block block-8" width="100%" border="0" cellpadding="0" cellspacing="0"
+                            role="presentation"
+                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                            <tr>
+                              <td class="pad"
+                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:20px;">
+                                <div
+                                  style="color:#000000;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
+                                  <p style="margin: 0; margin-bottom: 16px;">Thank you!</p>
+                                  <p style="margin: 0;">Spot.care</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="divider_block block-9" width="100%" border="0" cellpadding="10" cellspacing="0"
+                            role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <tr>
+                              <td class="pad">
+                                <div class="alignment" align="center">
+                                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"
+                                    style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                    <tr>
+                                      <td class="divider_inner"
+                                        style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;"><span
+                                          style="word-break: break-word;">&#8202;</span></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="paragraph_block block-10" width="100%" border="0" cellpadding="10"
+                            cellspacing="0" role="presentation"
+                            style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                            <tr>
+                              <td class="pad">
+                                <div
+                                  style="color:#94929d;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:center;mso-line-height-alt:18px;">
+                                  <p style="margin: 0;">1 Concourse Pkwy, Atlanta, GA 30328 | 1888-122-3233 |
+                                    support@spot.care</p>
+
+                                </div>
+                                <div
+                                  style="color:#94929d;direction:ltr;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:center;mso-line-height-alt:18px;">
+                                  <p style="margin: 0;">
+
+                                    &copy; Spot.care. All Rights Reserved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </td>
+      </tr>
+    </tbody>
+  </table><!-- End -->
+</body>
+
+</html>`;
+
+  return htmlTemplate;
 } 
