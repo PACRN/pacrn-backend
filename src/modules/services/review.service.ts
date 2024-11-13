@@ -34,7 +34,6 @@ export class ReviewService extends BaseService<Review> {
             review.totalRating = totalReview.TotalRating; // Fixed assignment
             review.totalReviews = totalReview.TotalReviews;
             review.providerCode = providerCode;
-            console.log(review)
             let data = await this.totalReviewRepository.create(review)
             return data
         } catch (ex) {
