@@ -5,8 +5,9 @@ puppeteer.use(StealthPlugin());
 
 const ReviewScrape = async (url: string) => {
     const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    })
+      });
 
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000)
