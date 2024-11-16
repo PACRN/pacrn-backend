@@ -11,7 +11,7 @@ import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
 import { CreateUser, GetUserByEmail, loginUser, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
-import { CreateContactMessages } from './routes/contacts';
+import { CreateContactMessages, TestEmail } from './routes/contacts';
 
 export async function useUploadDir() {
   const uploadDir = path.join(__dirname, "files");
@@ -66,5 +66,6 @@ export default async (app: any) => {
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
 
   app.post('/api/createContact', bodyValidator(contactSchema), CreateContactMessages)
+  app.get('/api/testEmail', queryValidator(emailSchema), TestEmail);
 
 }

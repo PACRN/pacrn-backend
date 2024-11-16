@@ -3,15 +3,29 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
 puppeteer.use(StealthPlugin());
 
+async function launchPuppeteerWithRetries(retries = 3) {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await puppeteer.launch({
+                executablePath: '/usr/bin/chromium-browser',
+                headless: true,
+                args: ['--disable-dev-shm-usage', '--disable-gpu', '--no-sandbox'],
+                protocolTimeout: 180000,
+            });
+        } catch (error) {
+            console.error(`Launch attempt ${i + 1} failed: ${error.message}`);
+            if (i === retries - 1) throw error; // Throw error if final attempt fails
+        }
+    }
+}
+
+
 const ReviewScrape = async (url: string) => {
-    const browser = await puppeteer.launch({
-        executablePath: '/usr/bin/chromium-browser',
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });
+    const browser = await launchPuppeteerWithRetries();
 
     const page = await browser.newPage();
     await page.setDefaultNavigationTimeout(60000)
-    await page.goto(url)
+    await page.goto(url, { timeout: 60000, waitUntil: "networkidle2" });
     await page.waitForSelector(".kA9KIf")
     await page.waitForSelector(".hh2c6");
     const tabs = await page.$$(".hh2c6");
