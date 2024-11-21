@@ -6,11 +6,11 @@ import upload from 'multer';
 import { EmailSavedProvider, FindProvidersByCare, GetAllProviders, GetNearestProviders, GetProvider, GetQnAForProvider, SaveReport } from './routes/provider';
 import { AddCareType, CreateCare, DeleteCare, GetCares, UpdateCare } from './routes/care';
 import { bodyValidator, paramValidator, queryValidator } from '../utilities/validator';
-import { contactSchema, createCareSchema, emailSchema, idSchema, loginSchema, NearestProviderSchema, otpSchema, registerSchema, saveReportSchema, updateSchema } from './validators';
+import { contactSchema, createCareSchema, emailSchema, idSchema, loginSchema, NearestProviderSchema, otpSchema, registerSchema, resetPasswordSchema, saveReportSchema, updateSchema } from './validators';
 import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
-import { CreateUser, GetUserByEmail, loginUser, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
+import { CreateUser, ForgotPassword, GetUserByEmail, loginUser, ResetPassword, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
 import { CreateContactMessages, TestEmail } from './routes/contacts';
 
 export async function useUploadDir() {
@@ -63,6 +63,8 @@ export default async (app: any) => {
   app.post('/api/user/verify', bodyValidator(otpSchema), VerifyEmail);
   app.post('/api/user/retryVerification', bodyValidator(emailSchema), RetryVerification);
   app.get('/api/user/getUserByEmail', queryValidator(emailSchema), GetUserByEmail);
+  app.post('/api/user/forgotPassword', bodyValidator(emailSchema), ForgotPassword);
+  app.post('/api/user/resetPassword', bodyValidator(resetPasswordSchema), ResetPassword);
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);
 
   app.post('/api/createContact', bodyValidator(contactSchema), CreateContactMessages)

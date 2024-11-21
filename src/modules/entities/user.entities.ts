@@ -31,6 +31,12 @@ export class User {
     @Column({ nullable: true })
     profilePicture?: string;
 
+    @Column({ nullable: true })
+    resetToken?: string;
+
+    @Column({ nullable: true })
+    resetTokenExpiry?: Date;
+
     @BeforeInsert()
     async hashPassword?() {
         const secretKey = process.env.HASH_SECRET_KEY!; // Add your secret key to .env

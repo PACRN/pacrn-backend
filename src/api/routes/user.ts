@@ -10,6 +10,8 @@ import AzureBlobStorageHelper from "../../utilities/azureBlobStorageHelper";
 import { CONSTANTS } from "../../utilities/constants";
 import { User } from "../../modules/entities/user.entities";
 import { omit } from "../../utilities/omitKeys";
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 export const loginUser = async (
     req: Request,
@@ -123,10 +125,10 @@ export const UpdateProfile = async (req: Request, res: Response, next: NextFunct
         if (req.file) {
             const filePath = req.file.path;
             const filename = req.file.filename;
-    
+
             const azureResult = await AzureBlobStorageHelper.uploadFile(CONSTANTS.AZURE.CONTAINERS.IMAGES, CONSTANTS.AZURE.FOLDERS.PROFILE_FOLDER + "/" + filename, filePath)
             profileUrl = azureResult._response.request.url.split("?")[0];
-        }       
+        }
 
         let user: User = {
             email: email,
@@ -145,3 +147,68 @@ export const UpdateProfile = async (req: Request, res: Response, next: NextFunct
         next(error)
     }
 }
+
+export const ForgotPassword = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email } = req.body;
+        let user = await userService.findOneBy({ where: { email } });
+
+        if (!user) return Fail({ res, message: 'User not found' });
+
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        user.resetToken = resetToken;
+        user.resetTokenExpiry = new Date(Date.now() + 3600000); // 1-hour expiry
+
+        await userService.create(user);
+
+        const resetUrl = `${process.env.FRONTEND_URL}reset-password?token=${resetToken}`;
+        // await sendResetEmail(user.email, resetUrl);
+
+        await SendGridHelper.sendEmailWithFile(
+            user.email,
+            "spot.care verification link",
+            `Please find the otp`,
+            `<a href="${resetUrl}">Reset Password</a>`,
+            [],
+        )
+
+        Success({ res, message: 'Password reset email sent.', data: {} });
+    } catch (ex) {
+        next(ex);
+    }
+};
+
+export const ResetPassword = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { token, newPassword } = req.body;
+
+        const user = await userService.findOneBy({ where: { resetToken: token } });
+
+        if (!user || user.resetTokenExpiry < new Date()) {
+            return res.status(400).json({ message: 'Invalid or expired token' });
+        }
+
+        const secretKey = process.env.HASH_SECRET_KEY!; // Add your secret key to .env
+        const hmac = crypto.createHmac('sha256', secretKey).update(newPassword).digest('hex');
+        const password = await bcrypt.hash(hmac, 10);
+
+        user.password = password;
+        user.resetToken = null;
+        user.resetTokenExpiry = null;
+        await userService.create(user);
+
+        Success({ res, message: 'Password updated successfully.', data: {} });
+    } catch (ex) {
+        next(ex);
+    }
+};
