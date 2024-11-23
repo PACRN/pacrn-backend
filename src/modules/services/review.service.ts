@@ -1,10 +1,11 @@
-import { In } from "typeorm";
 import { Review } from "../entities/reviews.entities";
 import { ReviewRepository } from "../repositories/review.repository";
 import { BaseService } from './base.service';
 import { Service, Inject } from 'typedi';
 import { TotalReview } from "../entities/totalReview.entities";
 import { TotalReviewRepository } from "../repositories/totalReview.repository";
+import approxDateConvertor from "../../utilities/approxDateConvertor/approxDateConvertor";
+
 
 @Service()
 export class ReviewService extends BaseService<Review> {
@@ -52,7 +53,7 @@ export class ReviewService extends BaseService<Review> {
                 newReview.rating = e.rating;
                 newReview.review = e.review;
                 newReview.source = 'googleMap';
-                newReview.reviewPeriod = e.date;
+                newReview.reviewPeriod = approxDateConvertor(e.date);
                 newReview.TotalReviewId = totalReviewId;
                 newReview.username = e.username;
                 newReview.userThumbnail = e.userthumbnail;

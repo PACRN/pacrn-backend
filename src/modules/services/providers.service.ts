@@ -203,6 +203,7 @@ export class ProvidersService extends BaseService<Provider> {
                 .setParameter('refLat', currentLocation.lat)
                 .setParameter('refLon', currentLocation.lon)
                 .orderBy('distance', 'ASC') // Optional: Order by distance
+                .addOrderBy('review.reviewPeriod', 'DESC')
                 .getMany();
 
 
