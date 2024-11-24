@@ -139,7 +139,7 @@ export const savedProviderTemplate = (recipientName: string) => {
 																<div class="alignment" align="center"
 																	style="line-height:10px">
 																	<div style="max-width: 168px;"><img
-																			src="https://7a59f80f83.imgdist.com/pub/bfra/agyhij36/3x8/hss/bu2/Spot_Care_logo.png"
+																			src="https://www.spot.care/static/media/full.43b96d0f5e7320fec90a.png"
 																			style="display: block; height: auto; border: 0; width: 100%;"
 																			width="168" alt="Spot Care" title
 																			height="auto"></div>
@@ -405,7 +405,7 @@ export const EmailVerificationTemplate = (firstName: string, otp: string) => {
                               <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
                                 <div class="alignment" align="center" style="line-height:10px">
                                   <div style="max-width: 174px;"><img
-                                      src="https://7a59f80f83.imgdist.com/pub/bfra/agyhij36/3x8/hss/bu2/Spot_Care_logo.png"
+                                      src="https://www.spot.care/static/media/full.43b96d0f5e7320fec90a.png"
                                       style="display: block; height: auto; border: 0; width: 100%;" width="174"
                                       alt="Spot Care" title height="auto"></div>
                                 </div>

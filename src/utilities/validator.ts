@@ -1,12 +1,13 @@
 import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
+import { Fail } from './response-parser';
 
 // Validator for request parameters
 export const paramValidator = (schema: Joi.ObjectSchema) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const { error } = schema.validate(req.params);
         if (error) {
-            return res.status(400).json({ error: error.details[0].message });
+            return Fail({ statusCode: 400, message: error.details[0].message, res })
         }
         next();
     };
@@ -17,7 +18,7 @@ export const queryValidator = (schema: Joi.ObjectSchema) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const { error } = schema.validate(req.query);
         if (error) {
-            return res.status(400).json({ error: error.details[0].message });
+            return Fail({ statusCode: 400, message: error.details[0].message, res })
         }
         next();
     };
@@ -28,7 +29,7 @@ export const bodyValidator = (schema: Joi.ObjectSchema) => {
     return (req: Request, res: Response, next: NextFunction) => {
         const { error } = schema.validate(req.body);
         if (error) {
-            return res.status(400).json({ error: error.details[0].message });
+            return Fail({ statusCode: 400, message: error.details[0].message, res })
         }
         next();
     };
