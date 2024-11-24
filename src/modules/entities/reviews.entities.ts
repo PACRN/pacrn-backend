@@ -13,7 +13,7 @@ export class Review {
   @Column({ type: 'bigint', nullable: true })
   rating: number;
   @Column({ type: 'text' })
-  reviewPeriod: string;
+  reviewPeriod: Date;
   @Column({ type: 'text' })
   username: string;
   @Column({ type: 'text' })
