@@ -15,7 +15,7 @@ class AzureBlobStorageHelper {
 
         // Construct the connection string
         const azureConnectionString = `DefaultEndpointsProtocol=https;AccountName=${accountName};AccountKey=${accountKey};EndpointSuffix=core.windows.net`;
-
+            
         this.blobServiceClient = BlobServiceClient.fromConnectionString(azureConnectionString);
     }
 

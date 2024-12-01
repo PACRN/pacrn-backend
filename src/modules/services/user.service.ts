@@ -23,7 +23,7 @@ export class UserService extends BaseService<User> {
 
     public async loginUser(email: string, password: string) {
         const user: User = await this.repository.findOneBy({ where: { email } });
-        if (!user) throw new Error('No email present, Please signup');
+        if (!user) throw new Error('Invalid email address or password');
         if (!user.isVerified) throw new Error('Please complete your email verification');
 
         const secretKey = process.env.HASH_SECRET_KEY!;

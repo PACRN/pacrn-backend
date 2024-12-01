@@ -49,7 +49,10 @@ class SendGridHelper {
 
         const msg: MailDataRequired = {
             to,
-            from: process.env.SENDGRID_FROM_EMAIL,
+            from: {
+                email: process.env.SENDGRID_FROM_EMAIL,
+                name: process.env.SENDGRID_FROM_USERNAME,
+            },
             subject,
             text,
             html,
@@ -94,11 +97,14 @@ class SendGridHelper {
 
         const msg: MailDataRequired = {
             to,
-            from: process.env.SENDGRID_FROM_EMAIL,
+            from: {
+                email: process.env.SENDGRID_FROM_EMAIL,
+                name: process.env.SENDGRID_FROM_USERNAME,
+            },
             subject,
             text,
             html,
-            attachments: attachmentData,
+            attachments: attachmentData
         };
 
         try {
