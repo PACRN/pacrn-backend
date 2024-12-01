@@ -71,19 +71,19 @@ export const GetQnAForProvider = async (req: Request, res: Response, next: NextF
 
 export const EmailSavedProvider = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log("Uploaded file:", req.file);
-        const { email } = req.body;
+        const { email, firstName, secondName } = req.body;
         if (!req.file) {
             return res.status(400).send({ message: "No file uploaded" });
         }
 
         const filePath = req.file.path;
+        const fullName = (firstName + " " + (secondName || "")).trim();
 
         await SendGridHelper.sendEmailWithFile(
             email,
             "Get your saved providers List",
             "Please find the attached PDF file.",
-            savedProviderTemplate(email),
+            savedProviderTemplate(fullName),
             [
                 {
                     filename: req.file.originalname,
