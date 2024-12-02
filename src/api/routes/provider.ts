@@ -71,13 +71,13 @@ export const GetQnAForProvider = async (req: Request, res: Response, next: NextF
 
 export const EmailSavedProvider = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { email, firstName, secondName } = req.body;
+        const { email, firstName, lastname } = req.body;
         if (!req.file) {
             return res.status(400).send({ message: "No file uploaded" });
         }
 
         const filePath = req.file.path;
-        const fullName = (firstName + " " + (secondName || "")).trim();
+        const fullName = (firstName + " " + (lastname || "")).trim();
 
         await SendGridHelper.sendEmailWithFile(
             email,
