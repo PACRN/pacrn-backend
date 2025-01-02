@@ -10,7 +10,7 @@ import { contactSchema, createCareSchema, emailSchema, idSchema, loginSchema, Ne
 import { CreateReviews, GetAllReviews } from './routes/review';
 import path from "path";
 import fs from "fs";
-import { CreateUser, ForgotPassword, GetUserByEmail, loginUser, ResetPassword, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
+import { CreateUser, ForgotPassword, GetUserByEmail, loginUser, RemoveProfilePicture, ResetPassword, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
 import { CreateContactMessages, TestEmail } from './routes/contacts';
 
 export async function useUploadDir() {
@@ -63,6 +63,7 @@ export default async (app: any) => {
   app.post('/api/user/verify', bodyValidator(otpSchema), VerifyEmail);
   app.post('/api/user/retryVerification', bodyValidator(emailSchema), RetryVerification);
   app.get('/api/user/getUserByEmail', queryValidator(emailSchema), GetUserByEmail);
+  app.get('/api/user/removePicture', queryValidator(emailSchema), RemoveProfilePicture);
   app.post('/api/user/forgotPassword', bodyValidator(emailSchema), ForgotPassword);
   app.post('/api/user/resetPassword', bodyValidator(resetPasswordSchema), ResetPassword);
   app.get('/api/logout', deserializeUser, requireUser, logoutHandler);

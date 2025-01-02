@@ -1,11 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { Fail, Success } from "../../utilities/response-parser";
-import { ReviewService } from "../../modules/services/review.service";
 import { Container } from "typedi";
-import { ReviewReqBody } from "../../types/reviewReqBodyType";
 import { UserService } from "../../modules/services/user.service";
 import SendGridHelper from "../../utilities/sendGridHelper";
-import { EmailVerificationTemplate } from "../../utilities/EmailTemplate/EmailTemplate";
+import { EmailVerificationTemplate, PasswordResetTemplate } from "../../utilities/EmailTemplate/EmailTemplate";
 import AzureBlobStorageHelper from "../../utilities/azureBlobStorageHelper";
 import { CONSTANTS } from "../../utilities/constants";
 import { User } from "../../modules/entities/user.entities";
@@ -22,6 +20,7 @@ export const loginUser = async (
         const userService = Container.get(UserService);
         const { email, password } = req.body;
         let data = await userService.loginUser(email, password)
+        if (data === null) return Fail({ statusCode: 402, res: res, message: "Please complete the verification process - 402" })
         Success({ res, message: 'Fetched Successfully', data: data });
     } catch (ex) {
         next(ex);
@@ -159,6 +158,7 @@ export const ForgotPassword = async (
         let user = await userService.findOneBy({ where: { email } });
 
         if (!user) return Fail({ res, message: 'User not found' });
+        if (user.isVerified === false) return Fail({ res, message: 'User not verified' });
 
         const resetToken = crypto.randomBytes(32).toString('hex');
         user.resetToken = resetToken;
@@ -167,13 +167,14 @@ export const ForgotPassword = async (
         await userService.create(user);
 
         const resetUrl = `${process.env.FRONTEND_URL}reset-password?token=${resetToken}`;
+        console.log(resetUrl);
         // await sendResetEmail(user.email, resetUrl);
 
         await SendGridHelper.sendEmailWithFile(
             user.email,
-            "spot.care verification link",
-            `Please find the otp`,
-            `<a href="${resetUrl}">Reset Password</a>`,
+            "Reset your password",
+            `Please reset your password`,
+            PasswordResetTemplate(user.firstName, resetUrl),
             [],
         )
 
@@ -208,6 +209,21 @@ export const ResetPassword = async (
         await userService.create(user);
 
         Success({ res, message: 'Password updated successfully.', data: {} });
+    } catch (ex) {
+        next(ex);
+    }
+};
+
+export const RemoveProfilePicture = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    try {
+        const userService = Container.get(UserService);
+        const { email } = req.query;
+        let data = await userService.removeProfilePicture(email.toString());
+        Success({ res, message: 'Verified Successfully', data: data });
     } catch (ex) {
         next(ex);
     }

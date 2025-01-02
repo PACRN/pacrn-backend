@@ -54,4 +54,7 @@ export class Provider {
 
   @OneToOne(() => TotalReview, (totalReview) => totalReview.provider)
   totalReview: TotalReview;
+
+  @Column({ default: false })
+  isSponsored: boolean;
 }

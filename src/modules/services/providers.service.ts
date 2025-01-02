@@ -79,7 +79,8 @@ export class ProvidersService extends BaseService<Provider> {
                         qualityMeasure: true,
                         shortStatyQuality: true,
                         staffRating: true
-                    }
+                    },
+                    isSponsored: true
                 },
                 order: {
                     images: {
@@ -150,9 +151,6 @@ export class ProvidersService extends BaseService<Provider> {
         try {
             let providersRepository = await this.providersRepository.source.getRepository(Provider);
 
-            // Calculate the conversion from miles to kilometers
-            const radiusInKm = radius * 1.60934;
-
             const providers = await providersRepository.createQueryBuilder('provider')
                 .leftJoinAndSelect('provider.images', 'images')
                 .leftJoinAndSelect('provider.locations', 'locations')
@@ -162,7 +160,7 @@ export class ProvidersService extends BaseService<Provider> {
                 .leftJoinAndSelect('provider.section', 'section')
                 .where('provider.services LIKE :careType', { careType: `%${careType}%` })
                 .andWhere('provider."isActive" = True ')
-                .andWhere(`get_distance_from_lat_lon_km(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radiusInKm}`)
+                .andWhere(`get_distance_from_lat_lon_miles(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radius}`)
                 .select([
                     'provider.id',
                     'provider.code',
@@ -171,6 +169,7 @@ export class ProvidersService extends BaseService<Provider> {
                     'provider.email',
                     'provider.services',
                     'provider.tags',
+                    'provider.isSponsored',
                     'images.imagePath',
                     'images.imageOrder',
                     'locations.address',

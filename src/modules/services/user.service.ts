@@ -24,7 +24,7 @@ export class UserService extends BaseService<User> {
     public async loginUser(email: string, password: string) {
         const user: User = await this.repository.findOneBy({ where: { email } });
         if (!user) throw new Error('Invalid email address or password');
-        if (!user.isVerified) throw new Error('Please complete your email verification');
+        if (!user.isVerified) return null;
 
         const secretKey = process.env.HASH_SECRET_KEY!;
         const hmac = crypto.createHmac('sha256', secretKey).update(password).digest('hex');
@@ -53,6 +53,9 @@ export class UserService extends BaseService<User> {
     public async updateUser(user: User) {
         const existingUser = await this.repository.findOneBy({ where: { email: user.email } });
         if (existingUser) {
+            if(!user.profilePicture) {
+                user.profilePicture = existingUser.profilePicture;
+            }
             let result = await this.repository.update(existingUser.id, user);
             return result;
         }
@@ -63,6 +66,14 @@ export class UserService extends BaseService<User> {
         const user = await this.repository.findOneBy({ where: { email } });
         if (!user) throw new Error('User not found');
         return { ...omit(user, ['id', 'password', 'isVerified', 'verificationCode']) };
+    }
+
+    public async removeProfilePicture(email: string) {
+        const user = await this.repository.findOneBy({ where: { email } });
+        if (!user) throw new Error('User not found');
+        user.profilePicture = null;
+        await this.repository.update(user.id, user);
+        return { message: 'Profile picture removed successfully' };
     }
 
 }
