@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Location } from './location.entities';
 import { ProviderImage } from './providerImage.entities';
 import { Rating } from './ratings.entities';
 import { Reports } from './reports.entities';
 import { TotalReview } from './totalReview.entities';
 import { Section } from './section.entities';
+import { Wishlist } from './wishlist.entities';
 
 @Entity()
 export class Provider {
@@ -57,4 +58,8 @@ export class Provider {
 
   @Column({ default: false })
   isSponsored: boolean;
+
+  @OneToOne(() => Wishlist, wishlist => wishlist.provider)
+  wishlist: Wishlist;
+
 }

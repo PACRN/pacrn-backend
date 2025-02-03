@@ -12,6 +12,7 @@ import path from "path";
 import fs from "fs";
 import { CreateUser, ForgotPassword, GetUserByEmail, loginUser, RemoveProfilePicture, ResetPassword, RetryVerification, UpdateProfile, UpdateUser, VerifyEmail } from './routes/user';
 import { CreateContactMessages, TestEmail } from './routes/contacts';
+import { AddWishlist, GetWishlist, DeleteFromWishlist } from './routes/wishlist';
 
 export async function useUploadDir() {
   const uploadDir = path.join(__dirname, "files");
@@ -70,5 +71,9 @@ export default async (app: any) => {
 
   app.post('/api/createContact', bodyValidator(contactSchema), CreateContactMessages)
   app.get('/api/testEmail', queryValidator(emailSchema), TestEmail);
+
+  app.post('/api/wishlist', AddWishlist)
+  app.get('/api/getWishlist', GetWishlist)
+  app.get('/api/deleteFromWishlist', DeleteFromWishlist)
 
 }
