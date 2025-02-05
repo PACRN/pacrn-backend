@@ -34,6 +34,7 @@ export class Provider {
   section: Section[];
 
   @OneToOne(() => Rating, rating => rating.provider)
+  @JoinColumn()
   rating: Rating;
 
   @Column("simple-array")
@@ -54,12 +55,13 @@ export class Provider {
   isActive: boolean;
 
   @OneToOne(() => TotalReview, (totalReview) => totalReview.provider)
+  @JoinColumn()
   totalReview: TotalReview;
 
   @Column({ default: false })
   isSponsored: boolean;
 
-  @OneToOne(() => Wishlist, wishlist => wishlist.provider)
+  @OneToMany(() => Wishlist, wishlist => wishlist.provider)
   wishlist: Wishlist;
 
 }

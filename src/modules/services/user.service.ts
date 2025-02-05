@@ -33,7 +33,7 @@ export class UserService extends BaseService<User> {
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-        return { ...omit(user, ['id', 'password', 'isVerified', 'verificationCode']), token };
+        return { ...omit(user, ['password', 'isVerified', 'verificationCode']), token };
     }
 
     public async verifyEmail(email: string, otp: string) {
@@ -53,7 +53,7 @@ export class UserService extends BaseService<User> {
     public async updateUser(user: User) {
         const existingUser = await this.repository.findOneBy({ where: { email: user.email } });
         if (existingUser) {
-            if(!user.profilePicture) {
+            if (!user.profilePicture) {
                 user.profilePicture = existingUser.profilePicture;
             }
             let result = await this.repository.update(existingUser.id, user);

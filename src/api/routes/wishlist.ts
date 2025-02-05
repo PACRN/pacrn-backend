@@ -29,8 +29,9 @@ export const GetWishlist = async (req: Request, res: Response, next: NextFunctio
 export const DeleteFromWishlist = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const code = req.query.providerCode as string
+        const customerId = parseInt(req.query.customerId as string)
         const containerService = Container.get(WishlistService)
-        let data = await containerService.DeleteFromWishlist(code)
+        let data = await containerService.DeleteFromWishlist(code, customerId)
         Success({ res, message: 'Deleted Successfully' });
     } catch (ex) {
         next(ex)

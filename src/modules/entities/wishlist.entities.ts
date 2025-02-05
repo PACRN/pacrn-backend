@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { Provider } from "./providers.entities";
 
 @Entity()
@@ -12,10 +12,10 @@ export class Wishlist {
     @Column({ type: 'text' })
     providercode: string;
 
-    @Column({ type: 'bigint', unique: true })  // 🔥 Make providerId unique
+    @Column({ type: 'bigint', unique: false })  // 🔥 Make providerId unique
     providerId: number;
 
-    @OneToOne(() => Provider, provider => provider.wishlist)  // 🔥 Change to OneToOne
+    @ManyToOne(() => Provider, provider => provider.wishlist)  // 🔥 Change to OneToOne
     @JoinColumn({ name: 'providerId' })
     provider: Provider[]
 }

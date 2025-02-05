@@ -40,9 +40,9 @@ export class WishlistService extends BaseService<Wishlist> {
         }
     }
 
-    public async DeleteFromWishlist(providerCode: string): Promise<void> {
+    public async DeleteFromWishlist(providerCode: string, customerId: number): Promise<void> {
         try {
-            await this.repository.deleteBasedOnCodition({ providercode: providerCode })
+            await this.repository.deleteBasedOnCodition({ providercode: providerCode, customerId: customerId })
         } catch (ex) {
             throw ex
         }
