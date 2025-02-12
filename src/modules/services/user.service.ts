@@ -65,7 +65,7 @@ export class UserService extends BaseService<User> {
     public async getUserByEmail(email: string) {
         const user = await this.repository.findOneBy({ where: { email } });
         if (!user) throw new Error('User not found');
-        return { ...omit(user, ['id', 'password', 'isVerified', 'verificationCode']) };
+        return { ...omit(user, ['password', 'isVerified', 'verificationCode']) };
     }
 
     public async removeProfilePicture(email: string) {

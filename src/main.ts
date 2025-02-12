@@ -9,8 +9,21 @@ import { handleGlobalErrors, healthCheck, useAzureStorage, useCors, useLogger, u
 import 'reflect-metadata';
 import Container from 'typedi';
 import { DataSource } from 'typeorm';
+import fetchAndProcessProviders from './utilities/job/cronJobGoogleReview';
+import cron, { ScheduledTask } from "node-cron"
 
 dotenv.config();
+
+let cronJob: ScheduledTask;
+
+const executeCronJob = async () => {
+  console.log("Running provider fetch job...")
+  const hasProviders = await fetchAndProcessProviders()
+  if (!hasProviders) {
+    console.log("No more providers. Stopping cron job.");
+    cronJob.stop()
+  }
+}
 
 AppDataSource.initialize().then(async () => {
   // VALIDATE ENV
@@ -19,6 +32,10 @@ AppDataSource.initialize().then(async () => {
   Container.set(DataSource, AppDataSource)
 
   const app = express();
+
+  cronJob = cron.schedule("0 0 * * *", executeCronJob, {
+    timezone: "Asia/Kolkata"
+  }); //here 0 - runtime at 0 minute and another 0 - runtime at 0 hour
 
   app.use(express.json({ limit: '1000kb' }));
 
