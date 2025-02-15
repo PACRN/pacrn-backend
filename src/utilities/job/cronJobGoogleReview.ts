@@ -22,7 +22,7 @@ const fetchAndProcessProviders = async (): Promise<boolean> => {
         const providers = await providerRepo.find({
             where: { id: MoreThan(lastFetchedId) },
             select: ["id", "name", "code"],
-            take: 100//set the value how many datas need to be fetched at give period of time
+            take: 10//set the value how many datas need to be fetched at give period of time
         })
 
         if (providers.length === 0) {
@@ -30,10 +30,10 @@ const fetchAndProcessProviders = async (): Promise<boolean> => {
             await fs.writeFile(FILE_PATH, ""); // Clear the file
             return false;
         }
-        await fs.writeFile(FILE_PATH, "");
-        const lastId = providers[providers.length - 1].id;
-        await fs.writeFile(FILE_PATH, lastId.toString(), "utf8");
+
         for (const provider of providers) {
+            await fs.writeFile(FILE_PATH, "");
+            await fs.writeFile(FILE_PATH, provider.id.toString(), "utf8");
             try {
                 await CreateReviewFromJobs(provider.name, provider.code);
             } catch (error) {

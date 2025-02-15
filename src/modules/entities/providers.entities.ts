@@ -6,6 +6,7 @@ import { Reports } from './reports.entities';
 import { TotalReview } from './totalReview.entities';
 import { Section } from './section.entities';
 import { Wishlist } from './wishlist.entities';
+import { SkippedReview } from './skippedReview.entities';
 
 @Entity()
 export class Provider {
@@ -63,5 +64,8 @@ export class Provider {
 
   @OneToMany(() => Wishlist, wishlist => wishlist.provider)
   wishlist: Wishlist;
+
+  @OneToMany(() => SkippedReview, skippedReview => skippedReview.provider)
+  skippedReviews: SkippedReview[];
 
 }
