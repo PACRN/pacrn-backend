@@ -46,6 +46,7 @@ export class ReviewService extends BaseService<Review> {
         try {
             let existingReview: any = await this.totalReviewRepository.findOneBy({ where: { providerCode: providerCode } })
             if (existingReview) {
+                console.log(providerCode, "Review for this provider is already there.");
                 return false
             }
             return true
