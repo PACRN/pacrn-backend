@@ -42,7 +42,9 @@ AppDataSource.initialize().then(async () => {
 
     Container.set(DataSource, AppDataSource)
 
-    cronJob = cron.schedule('*/1 * * * *', executeCronJob);
+    await executeCronJob()
+
+    const cronJob = cron.schedule('0 * * * *', executeCronJob);
 
     parentPort?.on('message', (message) => {
         console.log("Message")

@@ -42,6 +42,18 @@ export class ReviewService extends BaseService<Review> {
         }
     }
 
+    public async GetReviewByProviderCode(providerCode: string): Promise<boolean> {
+        try {
+            let existingReview: any = await this.totalReviewRepository.findOneBy({ where: { providerCode: providerCode } })
+            if (existingReview) {
+                return false
+            }
+            return true
+        } catch (ex) {
+            throw ex
+        }
+    }
+
     public async CreateReviews(review: any[], totalReviewId: number): Promise<Review[]> {
         try {
             const existingReviews = await this.reviewRepository.findOneBy({ where: { TotalReviewId: totalReviewId } })

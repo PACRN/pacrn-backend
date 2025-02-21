@@ -2,6 +2,8 @@ import { promises as fs } from "fs";
 import { MoreThan } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Provider } from "../../modules/entities/providers.entities";
+import { Container } from "typedi";
+import { ReviewService } from "../../modules/services/review.service";
 import CreateReviewFromJobs from "../reivews/createReviewFromJob";
 
 const FILE_PATH = "last_provider_id.txt"
@@ -30,12 +32,15 @@ const fetchAndProcessProviders = async (): Promise<boolean> => {
             await fs.writeFile(FILE_PATH, ""); // Clear the file
             return false;
         }
+        const reviewService = Container.get(ReviewService)
 
         for (const provider of providers) {
             await fs.writeFile(FILE_PATH, "");
             await fs.writeFile(FILE_PATH, provider.id.toString(), "utf8");
             try {
-                await CreateReviewFromJobs(provider.name, provider.code);
+                if (await reviewService.GetReviewByProviderCode(provider.code)) {
+                    await CreateReviewFromJobs(provider.name, provider.code);
+                }
             } catch (error) {
                 console.error(`Skipping provider ID ${provider.id} due to an error:`, error);
             }
