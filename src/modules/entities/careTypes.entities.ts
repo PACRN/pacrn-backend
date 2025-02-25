@@ -15,4 +15,11 @@ export class CareType {
   @ManyToOne(() => Cares, cares => cares.id)
   @JoinColumn()
   care: Cares;
+
+  @Column({nullable: true})
+  key: string;
+
+  @Column({nullable: true})
+  description: string;
+
 }

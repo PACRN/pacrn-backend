@@ -24,13 +24,13 @@ AppDataSource.initialize().then(async () => {
 
   const app = express();
 
-  const cronworker = new Worker(path.join(__dirname, 'cronWorker.js'));
+  // const cronworker = new Worker(path.join(__dirname, 'cronWorker.js'));
 
-  cronworker.on('message', (message) => {
-    if (message === 'stop') {
-      cronworker.terminate()
-    }
-  })
+  // cronworker.on('message', (message) => {
+  //   if (message === 'stop') {
+  //     cronworker.terminate()
+  //   }
+  // })
 
 
   app.use(express.json({ limit: '1000kb' }));
