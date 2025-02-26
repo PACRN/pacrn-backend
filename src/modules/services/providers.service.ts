@@ -153,11 +153,13 @@ export class ProvidersService extends BaseService<Provider> {
 
             const providers = await providersRepository.createQueryBuilder('provider')
                 .leftJoinAndSelect('provider.images', 'images')
-                .leftJoinAndSelect('provider.locations', 'locations')
+                .leftJoinAndSelect('provider.locations', 'locations', 'locations.addressTypeId = 1')
                 .leftJoinAndSelect('provider.rating', 'rating')
                 .leftJoinAndSelect('provider.totalReview', 'total_review')
                 .leftJoinAndSelect('total_review.review', 'review')
                 .leftJoinAndSelect('provider.section', 'section')
+                .leftJoinAndSelect('provider.phoneNumber', 'phone', 'phone.phoneTypeId = 2')
+                .leftJoinAndSelect('provider.socialMedia', 'social_media', 'social_media.socialMediaTypeId = 1')
                 .where('provider.services LIKE :careType', { careType: `%${careType}%` })
                 .andWhere('provider."isActive" = True ')
                 .andWhere(`get_distance_from_lat_lon_miles(${currentLocation.lat}, ${currentLocation.lon}, locations.latitude, locations.longitude) <= ${radius}`)
@@ -170,6 +172,7 @@ export class ProvidersService extends BaseService<Provider> {
                     'provider.services',
                     'provider.tags',
                     'provider.isSponsored',
+                    'social_media.socialMediaLink',
                     'images.imagePath',
                     'images.imageOrder',
                     'locations.address',
@@ -196,7 +199,9 @@ export class ProvidersService extends BaseService<Provider> {
                     'review.rating',
                     'review.reviewPeriod',
                     'review.username',
-                    'review.userThumbnail'
+                    'review.userThumbnail',
+                    'phone.phoneNumber',
+
                 ])
                 .addSelect(`get_distance_from_lat_lon_km(:refLat, :refLon, locations.latitude, locations.longitude)`, 'distance')
                 .setParameter('refLat', currentLocation.lat)
