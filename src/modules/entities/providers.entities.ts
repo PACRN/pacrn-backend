@@ -7,6 +7,8 @@ import { TotalReview } from './totalReview.entities';
 import { Section } from './section.entities';
 import { Wishlist } from './wishlist.entities';
 import { SkippedReview } from './skippedReview.entities';
+import { SocialMedia } from './socialMedia.entities';
+import { Phone } from './phone.entities';
 
 @Entity()
 export class Provider {
@@ -34,6 +36,12 @@ export class Provider {
   @OneToMany(() => Section, section => section.provider)
   section: Section[];
 
+  @OneToMany(() => SocialMedia, social => social.provider)
+  socialMedia: SocialMedia[];
+
+  @OneToMany(() => Phone, phone => phone.provider)
+  phoneNumber: Phone[];
+
   @OneToOne(() => Rating, rating => rating.provider)
   @JoinColumn()
   rating: Rating;
@@ -48,9 +56,6 @@ export class Provider {
 
   @OneToMany(() => Location, location => location.provider)
   locations: Location[];
-
-  @Column('geography', { spatialFeatureType: 'Point', srid: 4326, nullable: true })
-  location: string;
 
   @Column({ nullable: true, default: true })
   isActive: boolean;

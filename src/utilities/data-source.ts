@@ -25,6 +25,10 @@ import { TotalReview } from '../modules/entities/totalReview.entities';
 import { User } from '../modules/entities/user.entities';
 import { Contact } from '../modules/entities/contact.entities';
 import { SkippedReview } from '../modules/entities/skippedReview.entities';
+import { Phone } from '../modules/entities/phone.entities';
+import { PhoneType } from '../modules/entities/phoneType.entities';
+import { SocialMedia } from '../modules/entities/socialMedia.entities';
+import { SocialMediaType } from '../modules/entities/socialMediaTypes.entities';
 
 
 export const AppDataSource = new DataSource({
@@ -39,7 +43,8 @@ export const AppDataSource = new DataSource({
   entities: [Provider, CareType, Cares,
     Tenant, TenantConfigurations, Subscriptions,
     Location, Tags, Rating, Review, Reports, Customer,
-    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview, User, Contact, SkippedReview],
+    Wishlist, Question, Response, ProviderImage, ImageType, AddressType, Section, SubSection, TotalReview, User, Contact,
+    SkippedReview, Phone, PhoneType, SocialMedia, SocialMediaType],
   // entities: ['src/modules/entities/*{.ts,.js}'],  
   migrations: [
     'src/migrations/*{.ts,.js}',

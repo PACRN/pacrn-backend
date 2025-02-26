@@ -6,7 +6,9 @@ import { CareType } from "../entities/careTypes.entities";
 
 @Service()
 export class CareTypeRepository extends BaseRepository<CareType> {
+    public source: DataSource;
     constructor(@Inject(() => DataSource) dataSource: DataSource) {
         super(CareType, dataSource);
+        this.source = dataSource;
     }
 }
