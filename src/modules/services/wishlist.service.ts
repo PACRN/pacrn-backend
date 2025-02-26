@@ -31,6 +31,7 @@ export class WishlistService extends BaseService<Wishlist> {
                     'provider.rating',
                     'provider.locations',
                     'provider.totalReview',
+                    'provider.phoneNumber'
                 ]
             }
             let data = await this.repository.findAll({ ...options });
