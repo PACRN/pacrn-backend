@@ -34,6 +34,12 @@ export class WishlistService extends BaseService<Wishlist> {
                 ]
             }
             let data = await this.repository.findAll({ ...options });
+            data = data.map((wishlistitem) => {
+                if (wishlistitem.provider) {
+                    wishlistitem.provider.services = wishlistitem.serviceTag ? [wishlistitem.serviceTag] : wishlistitem.provider[0].services
+                }
+                return wishlistitem
+            })
             return data;
         } catch (error) {
             throw error

@@ -15,7 +15,10 @@ export class Wishlist {
     @Column({ type: 'bigint', unique: false })  // 🔥 Make providerId unique
     providerId: number;
 
+    @Column({ type: 'text', nullable: true })
+    serviceTag: string;
+
     @ManyToOne(() => Provider, provider => provider.wishlist)  // 🔥 Change to OneToOne
     @JoinColumn({ name: 'providerId' })
-    provider: Provider[]
+    provider: Provider
 }
