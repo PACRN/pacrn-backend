@@ -21,4 +21,7 @@ export class Section {
   @ManyToOne(() => Provider, provider => provider.section)
   @JoinColumn({ name: 'code', referencedColumnName: 'code' }) // Correctly defines the foreign key column
   provider: Provider;
+
+  @Column('text', { nullable: true })
+  sectionGroup: string;
 }
